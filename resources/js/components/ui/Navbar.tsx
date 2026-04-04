@@ -3,7 +3,7 @@ import { CgSearch } from "react-icons/cg";
 import { HiOutlineUser, HiOutlineHeart, HiOutlineShoppingCart } from "react-icons/hi";
 import { Link } from "@inertiajs/react";
 import avatarImg from "../../../assets/icons/avatar.png";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const navigation = [
     { name: "Dashboard", href: "/dashboard" },
@@ -14,13 +14,29 @@ const navigation = [
 
 const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const currentUser = true;
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <header className="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
             <nav className="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
-                
-                {/* left side */}
                 <div className="flex items-center gap-6 md:gap-10">
                     <Link href="/">
                         <HiBars3BottomLeft className="size-7 text-black" />
@@ -36,12 +52,14 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* right side */}
                 <div className="relative flex items-center gap-3 md:gap-5">
-                    <div className="relative">
+                    <div className="relative" ref={dropdownRef}>
                         {currentUser ? (
                             <>
-                                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                                <button
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                    className="cursor-pointer hover:scale-105 transition"
+                                >
                                     <img
                                         src={avatarImg}
                                         alt="User avatar"
@@ -56,6 +74,7 @@ const Navbar = () => {
                                                 <li key={item.name}>
                                                     <Link
                                                         href={item.href}
+                                                        onClick={() => setIsDropdownOpen(false)}
                                                         className="block px-4 py-2 text-sm hover:bg-gray-100"
                                                     >
                                                         {item.name}
@@ -68,12 +87,12 @@ const Navbar = () => {
                             </>
                         ) : (
                             <Link href="/login">
-                                <HiOutlineUser className="size-7 text-white" />
+                                <HiOutlineUser className="size-7 text-black" />
                             </Link>
                         )}
                     </div>
 
-                    <button className="hidden sm:block">
+                    <button className="hidden sm:block cursor-pointer">
                         <HiOutlineHeart className="size-7 text-black" />
                     </button>
 
