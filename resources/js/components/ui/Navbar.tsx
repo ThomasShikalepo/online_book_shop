@@ -33,7 +33,13 @@ const Navbar = () => {
 
                 {/* right side navigation */}
                 <div className="relative flex item-center md:space-x-3 space-x-2">
-                   <HiOutlineUser className="size-6" />
+
+                    <div>
+                        {
+                            currentUser ? <>user</> :<HiOutlineUser className="size-6" />
+                        }
+                    </div>
+                   
                    <button className="hidden sm:block">
                     <HiOutlineHeart className="size-6"  />
                    </button>
