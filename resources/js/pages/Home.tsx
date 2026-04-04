@@ -8,8 +8,12 @@ export default function Home() {
     return (
         <>
              <Navbar />
-             <Banner />
-             <TopSellers />
+             <section className="bg-[#F3F5F6]">
+                 <Banner />
+             </section>
+             <section className="bg-white">
+                 <TopSellers />
+             </section>
         </>
     );
 }
