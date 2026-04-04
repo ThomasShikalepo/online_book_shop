@@ -1,6 +1,7 @@
 
 import Navbar from '@/components/ui/Navbar';
 import { Banner } from './home/Banner';
+import { TopSellers } from './home/TopSellers';
 
 export default function Home() {
 
@@ -8,8 +9,7 @@ export default function Home() {
         <>
              <Navbar />
              <Banner />
-
-            <footer>Footer</footer>
+             <TopSellers />
         </>
     );
 }

@@ -1,3 +1,5 @@
+@reference "./app.css";
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 .swiper {
@@ -5,36 +7,37 @@
     height: 100%;
 }
 
-.swipper-slide {
+.swiper-slide {
     background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.swipper-slide img {
+.swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.swipper-button-prev {
+.swiper-button-prev {
     display: none !important;
 }
 
 .swiper-button-next {
-    @apply bg-white p-5 rounded-full z-50 shadow-md;
+    @apply z-50 rounded-full bg-white p-5 shadow-md;
 }
 
-.swipper-button-prev:after, .swiper-button-next:after {
+.swiper-button-prev:after,
+.swiper-button-next:after {
     font-size: 16px !important;
 }
 
 .btn-primary {
- @apply bg-primary  px-12 py-2 rounded-md text-base font-secondary font-bold hover:bg-secondary hover:text-white transition-all duration-200 cursor-pointer
+    @apply cursor-pointer rounded-md bg-[#ffce0a] px-12 py-2 font-secondary text-base font-bold text-black transition-all duration-200 hover:bg-[#0d0842] hover:text-white;
 }
 
-.html {
-    scrollbhehavior: smooth;
+html {
+    scroll-behavior: smooth;
 }
