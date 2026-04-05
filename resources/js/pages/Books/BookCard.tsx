@@ -47,10 +47,10 @@ export default function BookCard({ book }: { book: Book }) {
         <div className="mt-4">
             <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl font-semibold text-black">
-                    ${book.new_price}
+                    N$ {book.new_price}
                 </span>
                 <span className="text-lg text-gray-400 line-through">
-                    ${book.old_price}
+                    N$ {book.old_price}
                 </span>
             </div>
 

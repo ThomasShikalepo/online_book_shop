@@ -26,12 +26,14 @@ export const TopSellers = ({ books }: TopSellersProps) => {
     );
   }
 
+  const topSellerBooks = books.slice(0, 10);
+
   const filteredBooks =
     selectedCategory === 'Choose a genre'
-      ? books
-      : books.filter(
-        (book) => book.category.toLowerCase() === selectedCategory.toLowerCase()
-      );
+      ? topSellerBooks
+      : topSellerBooks.filter(
+          (book) => book.category.toLowerCase() === selectedCategory.toLowerCase()
+        );
 
   return (
     <section className="max-w-screen-2xl mx-auto px-4 py-10">

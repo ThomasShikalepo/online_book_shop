@@ -1,7 +1,9 @@
 
 import Navbar from '@/components/ui/Navbar';
 import { Banner } from './home/Banner';
+import { Recommended } from './home/Recommended';
 import {TopSellers} from './home/TopSellers';
+
 
 
 type Book = {
@@ -25,6 +27,9 @@ export default function Home({ books }: { books: Book[] }) {
              </section>
              <section className="bg-white">
                  <TopSellers books={books} />
+             </section>
+             <section className="bg-white">
+                <Recommended  books={books}/>
              </section>
         </>
     );
