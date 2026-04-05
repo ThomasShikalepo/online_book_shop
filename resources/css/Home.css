@@ -7,6 +7,49 @@
     height: 100%;
 }
 
+.custom-swiper .swiper-button-next,
+.custom-swiper .swiper-button-prev {
+  background: #f3f4f6; /* light gray */
+  border: 1px solid #d1d5db;
+  color: #2563eb; /* blue arrow */
+  width: 42px;
+  height: 42px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+/* arrow icon */
+.custom-swiper .swiper-button-next::after,
+.custom-swiper .swiper-button-prev::after {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* hover = yellow */
+.custom-swiper .swiper-button-next:hover,
+.custom-swiper .swiper-button-prev:hover {
+  background: #facc15; /* yellow */
+  color: black;
+}
+
+/* disabled state */
+.custom-swiper .swiper-button-disabled {
+  opacity: 0.4;
+}
+
+/* position */
+.custom-swiper .swiper-button-prev {
+  left: 0;
+}
+
+.custom-swiper .swiper-button-next {
+  right: 0;
+}
+
 .swiper-slide {
     background: #fff;
     display: flex;

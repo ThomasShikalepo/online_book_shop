@@ -1,9 +1,21 @@
 
 import Navbar from '@/components/ui/Navbar';
 import { Banner } from './home/Banner';
-import { TopSellers } from './home/TopSellers';
+import {TopSellers} from './home/TopSellers';
 
-export default function Home() {
+
+type Book = {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    trending: boolean;
+    cover_image: string;
+    old_price: number;
+    new_price: number;
+};
+
+export default function Home({ books }: { books: Book[] }) {
 
     return (
         <>
@@ -12,7 +24,7 @@ export default function Home() {
                  <Banner />
              </section>
              <section className="bg-white">
-                 <TopSellers />
+                 <TopSellers books={books} />
              </section>
         </>
     );
