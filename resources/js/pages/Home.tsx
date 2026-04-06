@@ -1,8 +1,11 @@
 
 import Navbar from '@/components/ui/Navbar';
 import { Banner } from './home/Banner';
+import Footer from './home/Footer';
 import { Recommended } from './home/Recommended';
 import {TopSellers} from './home/TopSellers';
+
+
 
 
 
@@ -31,6 +34,9 @@ export default function Home({ books }: { books: Book[] }) {
              <section className="bg-white">
                 <Recommended  books={books}/>
              </section>
+             
+                <Footer />
+             
         </>
     );
 }

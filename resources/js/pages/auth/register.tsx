@@ -1,3 +1,4 @@
+import '@/../css/Home.css';
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
@@ -21,7 +22,7 @@ export default function Register() {
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6">
+                        <div className="grid gap-6 text-black  placeholder:text-gray-400">
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Name</Label>
                                 <Input
@@ -33,6 +34,7 @@ export default function Register() {
                                     autoComplete="name"
                                     name="name"
                                     placeholder="Full name"
+                                    
                                 />
                                 <InputError
                                     message={errors.name}
@@ -86,9 +88,10 @@ export default function Register() {
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full"
+                                className="mt-2 w-full btn-primary"
                                 tabIndex={5}
                                 data-test="register-user-button"
+                                
                             >
                                 {processing && <Spinner />}
                                 Create account
@@ -97,7 +100,7 @@ export default function Register() {
 
                         <div className="text-center text-sm text-muted-foreground">
                             Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
+                            <TextLink href={login()} tabIndex={6} className='text-black'>
                                 Log in
                             </TextLink>
                         </div>

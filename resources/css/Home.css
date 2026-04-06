@@ -78,7 +78,7 @@
 }
 
 .btn-primary {
-    @apply cursor-pointer rounded-md bg-[#ffce0a] px-12 py-2 font-secondary text-base font-bold text-black transition-all duration-200 hover:bg-[#0d0842] hover:text-white;
+    @apply cursor-pointer rounded-md bg-[#ffce0a] px-12 py-2 font-secondary text-base  text-black transition-all duration-200 hover:bg-[#0d0842] hover:text-white;
 }
 
 html {
