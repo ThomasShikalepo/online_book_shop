@@ -16,4 +16,8 @@ class Book extends Model
         'new_price',
         'quantity',
     ];
+
+    public function cartItems() {
+        return $this->hasMany(CartItem::class);
+    }
 }

@@ -1,11 +1,9 @@
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { CgSearch } from "react-icons/cg";
 import { HiOutlineUser, HiOutlineHeart, HiOutlineShoppingCart } from "react-icons/hi";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import avatarImg from "../../../assets/icons/avatar.png";
 import { useState, useRef, useEffect } from "react";
-import { usePage } from '@inertiajs/react';
-
 
 const navigation = [
     { name: "Dashboard", href: "/dashboard" },
@@ -18,28 +16,26 @@ const Navbar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const { auth, cartCount } = usePage().props as any;
+    const currentUser = auth?.user;
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsDropdownOpen(false);
             }
-        }
+        };
 
-        document.addEventListener("mousedown", handleClickOutside)
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    })
-    // authentication user icon
-    const { auth } = usePage().props as any;
-    const currentUser = auth?.user;
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <header className="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
             <nav className="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
-
-                {/* left side */}
                 <div className="flex items-center gap-6 md:gap-10">
                     <Link href="/">
                         <HiBars3BottomLeft className="size-7 text-black" />
@@ -55,12 +51,14 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/* right side */}
                 <div className="relative flex items-center gap-3 md:gap-5">
                     <div className="relative" ref={dropdownRef}>
                         {currentUser ? (
                             <>
-                                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="cursor-pointer hover:scale-105 transition">
+                                <button
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                    className="cursor-pointer hover:scale-105 transition"
+                                >
                                     <img
                                         src={avatarImg}
                                         alt="User avatar"
@@ -70,8 +68,6 @@ const Navbar = () => {
 
                                 {isDropdownOpen && (
                                     <div className="absolute right-0 mt-3 w-48 rounded-md bg-white text-black shadow-xl z-50 overflow-hidden">
-
-                                        {/* USER NAME */}
                                         <div className="px-4 py-2 text-sm font-medium border-b">
                                             {currentUser?.name}
                                         </div>
@@ -106,8 +102,8 @@ const Navbar = () => {
                         href="/cart"
                         className="bg-yellow-400 text-black px-3 sm:px-5 py-2 flex items-center rounded-md font-medium"
                     >
-                        <HiOutlineShoppingCart className="size-6 textbl" />
-                        <span className="ml-1">0</span>
+                        <HiOutlineShoppingCart className="size-6 text-black" />
+                        <span className="ml-1">{cartCount ?? 0}</span>
                     </Link>
                 </div>
             </nav>
