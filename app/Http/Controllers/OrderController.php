@@ -79,6 +79,6 @@ class OrderController extends Controller
             CartItem::where('user_id', $user->id)->delete();
         });
 
-        return redirect()->route('cart')->with('success', 'Your order has been placed successfully.');
+        return redirect()->route('orders.index')->with('success', 'Your order has been placed successfully.');
     }
 }

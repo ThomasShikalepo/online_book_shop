@@ -1,5 +1,6 @@
 import '@/../css/Home.css';
 import { Link, usePage, router } from "@inertiajs/react";
+import { motion } from "framer-motion";
 import React, { useState } from 'react'
 
 const CartPage = () => {
@@ -78,7 +79,12 @@ const CartPage = () => {
 
   return (
     <>
-      <div className="flex mt-12 h-full flex-col overflow-hidden bg-white shadow-xl">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex mt-12 h-full flex-col overflow-hidden bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/20 mx-auto max-w-4xl"
+      >
         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
           <div className="flex items-start justify-between">
             <div className="text-lg font-medium text-gray-900">Shopping cart</div>
@@ -105,7 +111,11 @@ const CartPage = () => {
                       const itemSubtotal = (products.price ?? products.book?.new_price) * currentQuantity;
 
                       return (
-                        <li key={products?.id} className="flex py-6">
+                        <motion.li 
+                          layout
+                          key={products?.id} 
+                          className="flex py-6"
+                        >
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                             <img
                               alt=""
@@ -166,7 +176,7 @@ const CartPage = () => {
                               </div>
                             </div>
                           </div>
-                        </li>
+                        </motion.li>
                       );
                     })
                   }
@@ -209,7 +219,7 @@ const CartPage = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }

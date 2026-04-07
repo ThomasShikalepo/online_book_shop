@@ -1,5 +1,8 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
+import { motion, AnimatePresence } from "framer-motion";
 import React from 'react';
+import { Spinner } from '@/components/ui/spinner';
+
 
 type CartItem = {
   id: number;
@@ -34,6 +37,18 @@ export default function CheckoutPage() {
 
   const totalItems = cartItems.reduce((sum: number, item: CartItem) => sum + item.quantity, 0);
   const cartError = ((form.errors as any).cart as string) ?? undefined;
+  const generalError = ((form.errors as any).general as string) ?? undefined;
+
+  const isFormComplete = Boolean(
+    form.data.name.trim()
+    && form.data.phone.trim()
+    && form.data.address.trim()
+    && form.data.city.trim()
+    && form.data.country.trim()
+    && form.data.state.trim()
+    && form.data.zipcode.trim()
+    && form.data.billing_same
+  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,21 +56,55 @@ export default function CheckoutPage() {
   };
 
   return (
-    <section>
-      <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-        <div className="container max-w-screen-lg mx-auto">
+    <section className="relative">
+      <div className="min-h-screen p-6 bg-transparent flex items-center justify-center">
+        <div className="container max-w-screen-lg mx-auto relative">
+          <AnimatePresence>
+            {form.processing && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-50 flex items-center justify-center bg-white/50 backdrop-blur-sm rounded-3xl"
+              >
+                <div className="flex flex-col items-center gap-4">
+                  <Spinner className="size-12 text-blue-600" />
+                  <p className="text-lg font-medium text-blue-900">Processing your order...</p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <div>
             <div>
                 <h2 className="font-semibold text-xl text-black mb-2">Cash On Delivery</h2>
                 <p className="text-black mb-2">Total Price: N$ {totalPrice}</p>
                 <p className="text-black mb-6">Items: {totalItems}</p>
+              </div>
 
-              <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 text-black">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-4 px-4 md:p-8 mb-6 text-black border border-white/20"
+              >
               {cartError && (
                 <div className="mb-4 rounded-md bg-red-50 p-4 text-red-700">
                   {cartError}
                 </div>
               )}
+              {generalError && (
+                <div className="mb-4 rounded-md bg-red-50 p-4 text-red-700">
+                  {generalError}
+                </div>
+              )}
+              {Object.entries(form.errors)
+                .filter(([key]) => key !== 'cart' && key !== 'general')
+                .map(([key, value]) => (
+                  <div key={key} className="mb-4 rounded-md bg-red-50 p-4 text-red-700">
+                    {value}
+                  </div>
+                ))}
               {cartItems.length === 0 && (
                 <div className="mb-4 rounded-md bg-yellow-50 p-4 text-yellow-700">
                   Your cart is empty. Add books to your cart before placing an order.
@@ -202,9 +251,10 @@ export default function CheckoutPage() {
                       <div className="inline-flex items-end">
                         <button
                           type="submit"
-                          disabled={!form.data.billing_same || form.processing || cartItems.length === 0}
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-70"
+                          disabled={!isFormComplete || form.processing || cartItems.length === 0}
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
                         >
+                          {form.processing ? <Spinner className="text-white" /> : null}
                           {form.processing ? 'Placing order...' : 'Place an Order'}
                         </button>
                       </div>
@@ -212,10 +262,9 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </div>
       </div>
     </section>
   );

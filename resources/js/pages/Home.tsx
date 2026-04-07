@@ -1,5 +1,6 @@
 
 import Navbar from '@/components/ui/Navbar';
+import { DynamicBackground } from '@/components/dynamic-background';
 import { Banner } from './home/Banner';
 import Footer from './home/Footer';
 import { Recommended } from './home/Recommended';
@@ -24,18 +25,19 @@ export default function Home({ books }: { books: Book[] }) {
 
     return (
         <>
+            <DynamicBackground />
              <Navbar />
-             <section className="bg-[#F3F5F6]">
+             <section className="bg-transparent py-10">
                  <Banner />
              </section>
-             <section className="bg-white">
+             <section className="bg-transparent py-10">
                  <TopSellers books={books} />
              </section>
-             <section className="bg-white">
+             <section className="bg-transparent py-10">
                 <Recommended  books={books}/>
              </section>
              
-                  <section className="bg-white">
+             <section className="bg-transparent py-10">
                 <Footer  />
              </section>
             

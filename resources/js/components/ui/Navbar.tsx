@@ -36,7 +36,7 @@ const Navbar = () => {
     }, []);
 
     return (
-        <header className="w-full bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <header className="w-full bg-white/70 backdrop-blur-lg border-b border-white/20 shadow-sm sticky top-0 z-50">
             <nav className="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
                 <div className="flex items-center gap-6 md:gap-10">
                     <Link href="/">
@@ -69,7 +69,7 @@ const Navbar = () => {
                                 </button>
 
                                 {isDropdownOpen && (
-                                    <div className="absolute right-0 mt-3 w-48 rounded-md bg-white text-black shadow-xl z-50 overflow-hidden">
+                                    <div className="absolute right-0 mt-3 w-48 rounded-md bg-white/90 backdrop-blur-xl text-black shadow-2xl z-50 overflow-hidden border border-white/20">
                                         <div className="px-4 py-2 text-sm font-medium border-b">
                                             {currentUser?.name}
                                         </div>
