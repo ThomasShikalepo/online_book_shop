@@ -26,6 +26,17 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+    Route::get('/checkout', function () {
+        $cartItems = Auth::user()
+            ->cartItems()
+            ->with('book')
+            ->get();
+
+        return inertia('Books/CheckoutPage', [
+            'cartItems' => $cartItems,
+        ]);
+    })->name('checkout');
 });
 
 require __DIR__ . '/settings.php';
