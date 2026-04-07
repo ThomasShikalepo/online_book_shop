@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Models\Book;
 
 Route::inertia('/', 'Home', [
@@ -37,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
             'cartItems' => $cartItems,
         ]);
     })->name('checkout');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 });
 
 require __DIR__ . '/settings.php';
