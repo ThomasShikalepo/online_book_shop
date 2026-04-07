@@ -14,7 +14,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('quantity')->default(1);
-            
+            $table->decimal('price', 10, 2);
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
 
             // prevent duplicate book per user
