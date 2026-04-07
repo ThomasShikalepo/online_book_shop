@@ -1,24 +1,69 @@
 import { Link, usePage, router } from "@inertiajs/react";
-import React from 'react'
+import React, { useState } from 'react'
 
 const CartPage = () => {
   const {cartItems} = usePage().props as any;
+  const [quantities, setQuantities] = useState<{[key: number]: number}>({});
+  const [editingItems, setEditingItems] = useState<Set<number>>(new Set());
+
+  // Initialize quantities
+  React.useEffect(() => {
+    const initialQties: {[key: number]: number} = {};
+    cartItems.forEach((item: any) => {
+      initialQties[item.id] = item.quantity;
+    });
+    setQuantities(initialQties);
+  }, [cartItems]);
+
   const totalPrice = cartItems.reduce((total: number, item: any) => {
-    const itemTotal = item.subtotal ?? (item.price ?? item.book?.new_price) * item.quantity;
-
+    const currentQuantity = quantities[item.id] || item.quantity;
+    const itemTotal = (item.price ?? item.book?.new_price) * currentQuantity;
     return total + itemTotal;
-
   }, 0).toFixed(2);
 
   const handleClearCart = () => {
     if (confirm('Are you sure you want to clear your entire cart?')) {
-      router.delete(route('cart.clear'));
+      router.delete('/cart');
     }
   };
 
   const handleRemoveItem = (itemId: number) => {
     if (confirm('Are you sure you want to remove this item from your cart?')) {
-      router.delete(route('cart.destroy', itemId));
+      router.delete(`/cart/${itemId}`);
+    }
+  };
+
+  const handleQuantityChange = (itemId: number, newQuantity: number) => {
+    if (newQuantity < 1) return;
+    setQuantities({ ...quantities, [itemId]: newQuantity });
+    setEditingItems(prev => new Set(prev).add(itemId));
+  };
+
+  const handleSaveQuantity = (itemId: number) => {
+    const newQuantity = quantities[itemId];
+    if (newQuantity > 0) {
+      router.patch(`/cart/${itemId}`, { quantity: newQuantity }, {
+        onSuccess: () => {
+          setEditingItems(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(itemId);
+            return newSet;
+          });
+        }
+      });
+    }
+  };
+
+  const handleCancelEdit = (itemId: number) => {
+    // Reset to original quantity
+    const originalItem = cartItems.find((item: any) => item.id === itemId);
+    if (originalItem) {
+      setQuantities({ ...quantities, [itemId]: originalItem.quantity });
+      setEditingItems(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(itemId);
+        return newSet;
+      });
     }
   };
   
@@ -46,7 +91,10 @@ const CartPage = () => {
             cartItems.length > 0 ? (<ul role="list" className="-my-6 divide-y divide-gray-200">
                 
                 {
-                  cartItems.map((products: any) => (
+                  cartItems.map((products: any) => {
+                    const currentQuantity = quantities[products.id] || products.quantity;
+                    const itemSubtotal = (products.price ?? products.book?.new_price) * currentQuantity;
+                    return (
                      <li key={products?.id} className="flex py-6">
                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     <img
@@ -64,13 +112,38 @@ const CartPage = () => {
                         </h3>
                         <div className="text-right">
                           <p className="sm:ml-4">Unit price: N$ {products?.price?.toFixed(2) ?? products?.book?.new_price?.toFixed(2)}</p>
-                          <p className="sm:ml-4 font-semibold">total: N$ {(products?.subtotal ?? (products?.book?.new_price * products?.quantity)).toFixed(2)}</p>
+                          <p className="sm:ml-4 font-semibold">total: N$ {itemSubtotal.toFixed(2)}</p>
                         </div>
                       </div>
                       <p className="mt-1 text-sm text-gray-500 capitalize"><strong>Category:</strong> {products?.book?.category}</p>
                     </div>
                     <div className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm">
-                      <p className="text-gray-500"><strong>Qty:</strong> {products?.quantity}</p>
+                      <div className="flex items-center gap-2">
+                        <label className="text-gray-500 font-medium">Qty:</label>
+                        <input
+                          type="number"
+                          min="1"
+                          value={quantities[products.id] || products.quantity}
+                          onChange={(e) => handleQuantityChange(products.id, parseInt(e.target.value) || 1)}
+                          className="w-16 px-2 py-1 border border-gray-300 rounded text-gray-900"
+                        />
+                        {editingItems.has(products.id) && (
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => handleSaveQuantity(products.id)}
+                              className="px-2 py-1 bg-green-500 text-white text-xs rounded hover:bg-green-600"
+                            >
+                              Save
+                            </button>
+                            <button
+                              onClick={() => handleCancelEdit(products.id)}
+                              className="px-2 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-600"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        )}
+                      </div>
 
                       <div className="flex">
                         <button  
@@ -84,7 +157,8 @@ const CartPage = () => {
                     </div>
                   </div>
                 </li>
-                  ))
+                    );
+                  })
                 }
                 
                

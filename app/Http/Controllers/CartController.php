@@ -43,6 +43,24 @@ class CartController extends Controller
         return back()->with('success', 'Cart cleared successfully.');
     }
 
+    public function update(Request $request, CartItem $cartItem)
+    {
+        // Ensure user owns this cart item
+        if ($cartItem->user_id !== auth()->user()->id) {
+            return abort(403);
+        }
+
+        $validated = $request->validate([
+            'quantity' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $cartItem->update(['quantity' => $validated['quantity']]);
+        $cartItem->subtotal = $cartItem->price * $cartItem->quantity;
+        $cartItem->save();
+
+        return back()->with('success', 'Cart updated successfully.');
+    }
+
     public function destroy(CartItem $cartItem)
     {
         // Ensure user owns this cart item
