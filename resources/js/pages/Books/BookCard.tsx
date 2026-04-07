@@ -81,7 +81,7 @@ export default function BookCard({ book }: { book: Book }) {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         type="button"
-                        onClick={handleAddToCart}
+                        onClick={(e) => { e.stopPropagation(); handleAddToCart(); }}
                         disabled={processing}
                         className="bg-yellow-400 hover:bg-yellow-500 disabled:opacity-70 transition-colors text-black px-6 py-3 rounded-md flex items-center gap-2 font-medium shadow-sm hover:shadow-md"
                     >
