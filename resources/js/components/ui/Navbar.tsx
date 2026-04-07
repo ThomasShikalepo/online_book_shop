@@ -1,18 +1,20 @@
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { CgSearch } from "react-icons/cg";
 import { HiOutlineUser, HiOutlineHeart, HiOutlineShoppingCart } from "react-icons/hi";
-import { Link, usePage } from "@inertiajs/react";
+import { Link, usePage, router } from "@inertiajs/react";
 import avatarImg from "../../../assets/icons/avatar.png";
 import { useState, useRef, useEffect } from "react";
 
 const navigation = [
-    { name: "Dashboard", href: "/dashboard" },
+    { name: "Dashboard", href: "/Home" },
     { name: "Orders", href: "/orders" },
     { name: "Cart Page", href: "/cart" },
     { name: "Check Out", href: "/checkout" },
 ];
 
+
 const Navbar = () => {
+    const [isCartOpen, setIsCartOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -98,13 +100,12 @@ const Navbar = () => {
                         <HiOutlineHeart className="size-7 text-black" />
                     </button>
 
-                    <Link
-                        href="/cart"
+                    <button onClick={() => router.visit('/cart')}
                         className="bg-yellow-400 text-black px-3 sm:px-5 py-2 flex items-center rounded-md font-medium"
                     >
                         <HiOutlineShoppingCart className="size-6 text-black" />
                         <span className="ml-1">{cartCount ?? 0}</span>
-                    </Link>
+                    </button>
                 </div>
             </nav>
         </header>

@@ -18,7 +18,9 @@ export default function BookCard({ book }: { book: Book }) {
     });
 
     const handleAddToCart = () => {
-        if (processing) return;
+        if (processing) {
+            return;
+        }
 
         post('/cart', {
             preserveScroll: true,

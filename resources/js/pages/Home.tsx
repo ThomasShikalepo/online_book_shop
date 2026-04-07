@@ -35,8 +35,10 @@ export default function Home({ books }: { books: Book[] }) {
                 <Recommended  books={books}/>
              </section>
              
-                <Footer />
-             
+                  <section className="bg-white">
+                <Footer  />
+             </section>
+            
         </>
     );
 }
