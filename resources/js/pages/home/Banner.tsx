@@ -1,27 +1,91 @@
 import '@/../css/Home.css';
 import bannerImg from "../../../assets/icons/banner.png";
+import { motion } from 'framer-motion';
 
+export const Banner = () => {
+    return (
+        <div className='px-6 md:px-12 py-10 md:py-20 max-w-screen-2xl mx-auto'>
+            <div className='flex flex-col md:flex-row-reverse justify-between items-center gap-16 md:gap-24'>
+                {/* Visual Section with Floating Animation */}
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ 
+                        duration: 1,
+                        ease: "easeOut"
+                    }}
+                    className='md:w-1/2 w-full flex items-center md:justify-end relative'
+                >
+                    <motion.div
+                        animate={{ 
+                            y: [0, -20, 0],
+                            rotate: [0, 2, 0]
+                        }}
+                        transition={{ 
+                            duration: 6,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="relative z-10"
+                    >
+                        <img 
+                            src={bannerImg} 
+                            alt="Featured Book" 
+                            className="w-full max-w-[500px] drop-shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
+                        />
+                    </motion.div>
+                    
+                    {/* Decorative glow behind image */}
+                    <div className="absolute inset-0 bg-blue-400/20 blur-[120px] rounded-full scale-75 -z-10" />
+                </motion.div>
+                
+                {/* Content Section with Staggered Reveals */}
+                <div className='md:w-1/2 w-full text-white'>
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <span className="inline-block px-4 py-1 rounded-full bg-amber-400/10 text-amber-500 text-sm font-black tracking-widest uppercase mb-6 border border-amber-400/20">
+                            New Releases
+                        </span>
+                        <h1 className='md:text-7xl text-4xl font-black mb-8 leading-[1.1] tracking-tight'>
+                            Discover Your Next <br />
+                            <span className="text-amber-400 drop-shadow-[0_0_20px_rgba(251,191,36,0.3)]">Literary Adventure</span>
+                        </h1>
+                    </motion.div>
 
- export const Banner = () => {
-  return (
-    <div className='px-6 md:px-12 py-16'>
-      <div className='flex flex-col md:flex-row-reverse py-16 justify-between items-center gap-12'>
-         <div className='md:w-1/2 w-full flex items-center md:justify-end'>
-            <img src={bannerImg} alt="" />
+                    <motion.p 
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className='mb-12 text-xl md:text-2xl leading-relaxed text-slate-300 font-medium'
+                    >
+                        It's time to update your reading list with the latest and greatest releases. 
+                        From heart-pumping thrillers to captivating memoirs, explore stories that stay with you.
+                    </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                    >
+                        <motion.button 
+                            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(251, 191, 36, 0.4)" }}
+                            whileTap={{ scale: 0.95 }}
+                            className='bg-amber-400 hover:bg-amber-500 text-black px-10 py-5 rounded-2xl font-black text-xl shadow-xl shadow-amber-400/20 transition-all duration-300 flex items-center gap-3 group'
+                        >
+                            Start Exploring
+                            <motion.span
+                                animate={{ x: [0, 5, 0] }}
+                                transition={{ repeat: Infinity, duration: 1.5 }}
+                            >
+                                →
+                            </motion.span>
+                        </motion.button>
+                    </motion.div>
+                </div>
+            </div>
         </div>
-        
-        <div className='md:w-1/2 w-full text-black'>
-            <h1 className='md:text-5xl text-2xl font-medium mb-7'>New Releases This Week</h1>
-            <p className='mb-10 text-lg md:text-xl leading-relaxed text-gray-700'>It's time to update your reading list with some of the latest and greatest releases in the literary world. From heart-pumping thrillers to captivating memoirs, this week's new releases offer something for everyone</p>
-
-            <button className='btn-primary'>Subscribe</button>
-        </div>
-
-       
-    </div>
-    </div>
-  )
+    );
 }
-
-
-

@@ -12,7 +12,7 @@ type TopSellersProps = {
   books: Book[];
 };
 
-const categories = ['Choose a genre', 'business', 'fiction', 'horror', 'adventure'];
+const categories = ['Choose a genre', 'business', 'productivity', 'fiction', 'horror', 'adventure'];
 
 export const TopSellers = ({ books }: TopSellersProps) => {
   const [selectedCategory, setSelectedCategory] = useState('Choose a genre');
@@ -20,8 +20,8 @@ export const TopSellers = ({ books }: TopSellersProps) => {
   if (!books || books.length === 0) {
     return (
       <section className="max-w-screen-2xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold mb-4 text-black">Top Sellers</h2>
-        <p className="text-red-500">No books found.</p>
+        <h2 className="text-4xl font-black mb-4 text-white uppercase tracking-tighter">Top Sellers</h2>
+        <p className="text-amber-400 font-bold">No books found.</p>
       </section>
     );
   }
@@ -36,25 +36,35 @@ export const TopSellers = ({ books }: TopSellersProps) => {
         );
 
   return (
-    <section className="max-w-screen-2xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-semibold mb-6 text-black">Top Sellers</h2>
+    <section className="max-w-screen-2xl mx-auto px-4 py-10 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="mb-8 flex items-center">
-        <select
-          name="category"
-          id="category"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border bg-[#EAEAEA] border-gray-300 rounded-md px-4 py-2 focus:outline-none text-black"
-        >
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category === 'Choose a genre'
-                ? category
-                : category.charAt(0).toUpperCase() + category.slice(1)}
-            </option>
-          ))}
-        </select>
+      <h2 className="text-4xl font-black mb-10 text-white uppercase tracking-tighter relative z-10">
+        Top <span className="text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]">Sellers</span>
+      </h2>
+
+      <div className="mb-12 flex items-center">
+        <div className="relative group">
+          <select
+            name="category"
+            id="category"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="appearance-none border bg-white/5 border-white/10 rounded-2xl px-6 py-3.5 focus:outline-none focus:border-amber-400 focus:bg-white/10 text-white transition-all duration-300 font-bold shadow-inner min-w-[220px]"
+          >
+            {categories.map((category) => (
+              <option key={category} value={category} className="bg-[#0f172a] text-white">
+                {category === 'Choose a genre'
+                  ? category
+                  : category.charAt(0).toUpperCase() + category.slice(1)}
+              </option>
+            ))}
+          </select>
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-focus-within:text-amber-400 transition-colors">
+            ▼
+          </div>
+        </div>
       </div>
 
       {filteredBooks.length === 0 ? (
@@ -70,7 +80,6 @@ export const TopSellers = ({ books }: TopSellersProps) => {
           speed={600}
           slidesPerView={1}
           spaceBetween={30}
-          className="custom-swiper px-10"
           breakpoints={{
             640: {
               slidesPerView: 1,
@@ -86,9 +95,10 @@ export const TopSellers = ({ books }: TopSellersProps) => {
             },
             1180: {
               slidesPerView: 3,
-              spaceBetween: 50,
+              spaceBetween: 30,
             },
           }}
+          className="custom-swiper px-10 py-8"
         >
           {filteredBooks.map((book) => (
             <SwiperSlide key={book.id}>

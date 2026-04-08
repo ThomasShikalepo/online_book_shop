@@ -4,6 +4,7 @@ import { HiOutlineUser, HiOutlineHeart, HiOutlineShoppingCart } from "react-icon
 import { Link, usePage, router } from "@inertiajs/react";
 import avatarImg from "../../../assets/icons/avatar.png";
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const navigation = [
     { name: "Dashboard", href: "/Home" },
@@ -36,76 +37,96 @@ const Navbar = () => {
     }, []);
 
     return (
-        <header className="w-full bg-white/70 backdrop-blur-lg border-b border-white/20 shadow-sm sticky top-0 z-50">
+        <header className="w-full bg-[#020617]/40 backdrop-blur-2xl border-b border-white/5 shadow-2xl sticky top-0 z-50">
             <nav className="max-w-screen-2xl mx-auto px-6 py-5 flex items-center justify-between">
                 <div className="flex items-center gap-6 md:gap-10">
                     <Link href="/">
-                        <HiBars3BottomLeft className="size-7 text-black" />
+                        <motion.div whileHover={{ rotate: -10, scale: 1.1 }}>
+                            <HiBars3BottomLeft className="size-8 text-white transition-colors" />
+                        </motion.div>
                     </Link>
 
-                    <div className="relative w-40 sm:w-64 md:w-80">
-                        <CgSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+                    <motion.div 
+                        initial={false}
+                        whileFocusWithin={{ scale: 1.05 }}
+                        className="relative w-40 sm:w-64 md:w-80"
+                    >
+                        <CgSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 z-10" />
                         <input
                             type="text"
                             placeholder="Search here..."
-                            className="w-full rounded-md bg-[#EAEAEA] text-black py-2 pl-10 pr-3 focus:outline-none"
+                            className="w-full rounded-2xl bg-white/5 border border-white/10 focus:border-amber-400 focus:bg-white/10 text-white py-3 pl-10 pr-3 focus:outline-none transition-all duration-300 shadow-inner placeholder:text-slate-500"
                         />
-                    </div>
+                    </motion.div>
                 </div>
 
-                <div className="relative flex items-center gap-3 md:gap-5">
+                <div className="hidden lg:flex items-center gap-1">
+                    {navigation.map((item) => (
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            className="px-4 py-2 text-sm font-black text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+                        >
+                            {item.name}
+                        </Link>
+                    ))}
+                </div>
+
+                <div className="relative flex items-center gap-3 md:gap-8">
                     <div className="relative" ref={dropdownRef}>
                         {currentUser ? (
                             <>
-                                <button
+                                <motion.button
+                                    whileHover={{ scale: 1.1 }}
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                    className="cursor-pointer hover:scale-105 transition"
+                                    className="transition"
                                 >
-                                    <img
-                                        src={avatarImg}
-                                        alt="User avatar"
-                                        className="size-9 rounded-full border-2 border-blue-500"
-                                    />
-                                </button>
+                                    <div className="p-0.5 rounded-full bg-gradient-to-tr from-amber-400 to-indigo-500 shadow-lg">
+                                        <img
+                                            src={avatarImg}
+                                            alt="User avatar"
+                                            className="size-10 rounded-full border-2 border-[#020617]"
+                                        />
+                                    </div>
+                                </motion.button>
 
                                 {isDropdownOpen && (
-                                    <div className="absolute right-0 mt-3 w-48 rounded-md bg-white/90 backdrop-blur-xl text-black shadow-2xl z-50 overflow-hidden border border-white/20">
-                                        <div className="px-4 py-2 text-sm font-medium border-b">
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        className="absolute right-0 mt-3 w-56 rounded-2xl bg-[#0f172a]/90 backdrop-blur-2xl text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 overflow-hidden border border-white/10 p-2"
+                                    >
+                                        <div className="px-4 py-3 text-sm font-black border-b border-white/5 opacity-70 uppercase tracking-wider">
                                             {currentUser?.name}
                                         </div>
-
-                                        <ul className="py-2">
-                                            {navigation.map((item) => (
-                                                <li key={item.name} onClick={() => setIsDropdownOpen(false)}>
-                                                    <Link
-                                                        href={item.href}
-                                                        className="block px-4 py-2 text-sm hover:bg-gray-100"
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    </motion.div>
                                 )}
                             </>
                         ) : (
                             <Link href="/login">
-                                <HiOutlineUser className="size-7 text-black" />
+                                <motion.div whileHover={{ scale: 1.2, color: '#fbbf24' }}>
+                                    <HiOutlineUser className="size-8 text-slate-300 transition-colors" />
+                                </motion.div>
                             </Link>
                         )}
                     </div>
 
-                    <button className="hidden sm:block">
-                        <HiOutlineHeart className="size-7 text-black" />
-                    </button>
-
-                    <button onClick={() => router.visit('/cart')}
-                        className="bg-yellow-400 text-black px-3 sm:px-5 py-2 flex items-center rounded-md font-medium"
+                    <motion.button 
+                        whileHover={{ scale: 1.2, color: '#f43f5e' }}
+                        className="hidden sm:block"
                     >
-                        <HiOutlineShoppingCart className="size-6 text-black" />
-                        <span className="ml-1">{cartCount ?? 0}</span>
-                    </button>
+                        <HiOutlineHeart className="size-8 text-slate-300 transition-colors" />
+                    </motion.button>
+
+                    <motion.button 
+                        whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(251, 191, 36, 0.4)" }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => router.visit('/cart')}
+                        className="bg-amber-400 text-black px-4 sm:px-6 py-3 flex items-center rounded-2xl font-black shadow-[0_10px_20px_-10px_rgba(251,191,36,0.3)] transition-all duration-300"
+                    >
+                        <HiOutlineShoppingCart className="size-6" />
+                        <span className="ml-2">{cartCount ?? 0}</span>
+                    </motion.button>
                 </div>
             </nav>
         </header>

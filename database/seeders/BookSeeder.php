@@ -14,209 +14,457 @@ class BookSeeder extends Seeder
    */
   public function run(): void
   {
+    \App\Models\Book::truncate();
     $books = [
-
-
       [
-        "title" => "How to Grow Your Online Store",
-        "description" => "Learn the best strategies to grow your online store in today's competitive market.",
-        "category" => "business",
+        "title" => "Atomic Habits",
+        "description" => "A highly practical guide that breaks down habit formation into simple, actionable steps. It focuses on how small, 1% improvements can lead to massive results over time.",
+        "category" => "productivity",
         "trending" => true,
-        "coverImage" => "book-1.png",
-        "oldPrice" => 29.99,
-        "newPrice" => 19.99
+        "coverImage" => "atomic-habits.png",
+        "oldPrice" => 35.00,
+        "newPrice" => 27.00
       ],
       [
-        "title" => "Top 10 Fiction Books This Year",
-        "description" => "A curated list of the best fiction books that are trending this year.",
-        "category" => "books",
+        "title" => "Deep Work",
+        "description" => "Newport argues that the ability to focus without distraction on cognitively demanding tasks is becoming increasingly rare and valuable in our modern economy.",
+        "category" => "productivity",
         "trending" => true,
-        "coverImage" => "book-2.png",
-        "oldPrice" => 24.99,
+        "coverImage" => "deep-work.png",
+        "oldPrice" => 32.00,
+        "newPrice" => 28.00
+      ],
+      [
+        "title" => "Essentialism",
+        "description" => "This book isn't about doing more in less time; it's about getting only the right things done. It teaches a systematic discipline for discerning what is absolutely essential.",
+        "category" => "productivity",
+        "trending" => false,
+        "coverImage" => "essentialism.png",
+        "oldPrice" => 30.00,
+        "newPrice" => 26.00
+      ],
+      [
+        "title" => "Zero to One",
+        "description" => "A book on how to build companies that create new things. Thiel contends that tomorrow’s champions will not win by competing ruthlessly in today’s marketplace, but by escaping competition altogether.",
+        "category" => "business",
+        "trending" => true,
+        "coverImage" => "zero-to-one.jpg",
+        "oldPrice" => 34.00,
+        "newPrice" => 27.00
+      ],
+      [
+        "title" => "Slow Productivity",
+        "description" => "A newer philosophy for accomplishment that rejects 'pseudo-productivity.' It advocates for doing fewer things, working at a natural pace, and obsessing over quality.",
+        "category" => "productivity",
+        "trending" => true,
+        "coverImage" => "slow-productivity.png",
+        "oldPrice" => 36.00,
+        "newPrice" => 29.00
+      ],
+      [
+        "title" => "The 12 Week Year",
+        "description" => "This book introduces a system to shorten your execution cycle from a year to 12 weeks, creating more focus and urgency in achieving your goals.",
+        "category" => "productivity",
+        "trending" => false,
+        "coverImage" => "12-week-year.png",
+        "oldPrice" => 30.00,
+        "newPrice" => 25.00
+      ],
+      [
+        "title" => "The Productivity Project",
+        "description" => "Bailey outlines the results of a year-long experiment where he tested various productivity techniques on himself to find out what actually works and why.",
+        "category" => "productivity",
+        "trending" => false,
+        "coverImage" => "book-14.png",
+        "oldPrice" => 29.00,
+        "newPrice" => 26.00
+      ],
+      [
+        "title" => "The 48 Laws of Power",
+        "description" => "A comprehensive and historical study of power dynamics, drawing lessons from figures like Machiavelli, Sun Tzu, and Carl von Clausewitz.",
+        "category" => "business",
+        "trending" => true,
+        "coverImage" => "book-15.png",
+        "oldPrice" => 32.00,
+        "newPrice" => 26.00
+      ],
+      [
+        "title" => "Unreasonable Hospitality",
+        "description" => "Guidara explains how his restaurant became the best in the world by using 'unreasonable hospitality'—the practice of giving people more than they expect.",
+        "category" => "business",
+        "trending" => true,
+        "coverImage" => "book-16.png",
+        "oldPrice" => 35.00,
+        "newPrice" => 28.00
+      ],
+      [
+        "title" => "The Five Dysfunctions of a Team",
+        "description" => "A leadership fable that identifies the five pitfalls teams face as they seek to grow together: absence of trust, fear of conflict, lack of commitment, avoidance of accountability, and inattention to results.",
+        "category" => "business",
+        "trending" => false,
+        "coverImage" => "book-17.png",
+        "oldPrice" => 30.00,
+        "newPrice" => 25.00
+      ],
+      [
+        "title" => "The Great Gatsby",
+        "description" => "A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "the-great-gatsby.jpg",
+        "oldPrice" => 15.99,
+        "newPrice" => 12.99
+      ],
+      [
+        "title" => "To Kill a Mockingbird",
+        "description" => "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "to-kill-a-mockingbird.jpg",
+        "oldPrice" => 18.99,
         "newPrice" => 14.99
       ],
       [
-        "title" => "Mastering SEO in 2024",
-        "description" => "Tips and tricks to boost your SEO and rank higher on search engines.",
-        "category" => "marketing",
-        "trending" => true,
-        "coverImage" => "book-3.png",
-        "oldPrice" => 39.99,
-        "newPrice" => 29.99
-      ],
-      [
-        "title" => "Best eCommerce Platforms",
-        "description" => "A comprehensive guide on choosing the best eCommerce platforms for 2024.",
-        "category" => "business",
-        "trending" => false,
-        "coverImage" => "book-4.png",
-        "oldPrice" => 49.99,
-        "newPrice" => 39.99
-      ],
-      [
-        "title" => "Non-Fiction Reads You Must Try",
-        "description" => "Our top picks for non-fiction books to add to your reading list.",
-        "category" => "books",
-        "trending" => true,
-        "coverImage" => "book-5.png",
-        "oldPrice" => 19.99,
-        "newPrice" => 9.99
-      ],
-      [
-        "title" => "Ultimate Guide to Digital Marketing",
-        "description" => "A complete guide to digital marketing strategies for 2024.",
-        "category" => "marketing",
-        "trending" => false,
-        "coverImage" => "book-6.png",
-        "oldPrice" => 44.99,
-        "newPrice" => 34.99
-      ],
-
-      [
-        "title" => "The First Days",
-        "description" => "Katie is driving to work one beautiful day when a dead man jumps into her car and tries to eat her.  That same morning, Jenni opens a bedroom door to find her husband devouring their toddler son. ",
-        "category" => "horror",
-        "trending" => true,
-        "coverImage" => "book-7.png",
-        "oldPrice" => 59.99,
-        "newPrice" => 49.99
-      ],
-      [
-        "title" => "The Hunger Games",
-        "description" => "Could you survive on your own in the wild, with every one out to make sure you don't live to see the morning?",
+        "title" => "1984",
+        "description" => "Winston Smith joins a secret revolutionary group dedicated to the destruction of the Party and the downfall of Big Brother.",
         "category" => "fiction",
         "trending" => true,
-        "coverImage" => "book-8.png",
-        "oldPrice" => 21.99,
-        "newPrice" => 16.99
+        "coverImage" => "1984.jpg",
+        "oldPrice" => 16.99,
+        "newPrice" => 11.99
       ],
-
-      [
-        "title" => "Harry Potter and the Order of the Phoenix",
-        "description" => "Harry Potter is about to start his fifth year at Hogwarts School of Witchcraft and Wizardry. Unlike most schoolboys, Harry never enjoys his summer holidays",
-        "category" => "adventure",
-        "trending" => false,
-        "coverImage" => "book-9.png",
-        "oldPrice" => 27.99,
-        "newPrice" => 18.99
-      ],
-
-
       [
         "title" => "Pride and Prejudice",
-        "description" => "The romantic clash between the opinionated Elizabeth and her proud beau, Mr. Darcy, is a splendid performance of civilized sparring.",
+        "description" => "The romantic clash between the opinionated Elizabeth and her proud beau, Mr. Darcy.",
         "category" => "fiction",
         "trending" => true,
-        "coverImage" => "book-10.png",
+        "coverImage" => "pride-and-prejudice.jpg",
         "oldPrice" => 14.99,
         "newPrice" => 10.99
       ],
-
       [
-        "title" => "To Kill a Mockingbird",
-        "description" => "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. 'To Kill A Mockingbird' became both an instant bestseller",
+        "title" => "The Catcher in the Rye",
+        "description" => "The story of Holden Caulfield, a teenager who has just been expelled from his prep school.",
         "category" => "fiction",
         "trending" => true,
-        "coverImage" => "book-11.png",
-        "oldPrice" => 32.99,
-        "newPrice" => 25.99
-      ],
-
-
-      [
-        "title" => "The Fault in Our Stars",
-        "description" => "Despite the tumor-shrinking medical miracle that has bought her a few years, Hazel has never been anything but terminal, her final chapter inscribed upon diagnosis. ",
-        "category" => "business",
-        "trending" => true,
-        "coverImage" => "book-12.png",
-        "oldPrice" => 19.99,
+        "coverImage" => "the-catcher-in-the-rye.jpg",
+        "oldPrice" => 14.99,
         "newPrice" => 9.99
       ],
-
-
       [
-        "title" => "The Picture of Dorian Gray",
-        "description" => "Oscar Wilde’s only novel is the dreamlike story of a young man who sells his soul for eternal youth and beauty.",
-        "category" => "horror",
+        "title" => "The Hobbit",
+        "description" => "Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, until Gandalf arrives.",
+        "category" => "adventure",
         "trending" => true,
-        "coverImage" => "book-13.png",
+        "coverImage" => "the-hobbit.jpg",
+        "oldPrice" => 21.99,
+        "newPrice" => 16.99
+      ],
+      [
+        "title" => "Fahrenheit 451",
+        "description" => "Ray Bradbury's dystopian classic of a future society where books are burned.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "fahrenheit-451.jpg",
+        "oldPrice" => 19.99,
+        "newPrice" => 14.99
+      ],
+      [
+        "title" => "Moby-Dick",
+        "description" => "The voyage of the whaling ship Pequod, commanded by Captain Ahab, who is on a quest for revenge.",
+        "category" => "adventure",
+        "trending" => false,
+        "coverImage" => "moby-dick.jpg",
+        "oldPrice" => 24.99,
+        "newPrice" => 18.99
+      ],
+      [
+        "title" => "War and Peace",
+        "description" => "Tolstoy's epic novel of the Napoleonic Wars and their impact on five aristocratic families.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "war-and-peace.jpg",
+        "oldPrice" => 29.99,
+        "newPrice" => 24.99
+      ],
+      [
+        "title" => "The Odyssey",
+        "description" => "The epic poem that tells the story of Odysseus' ten-year journey home after the Trojan War.",
+        "category" => "adventure",
+        "trending" => true,
+        "coverImage" => "the-odyssey.jpg",
+        "oldPrice" => 12.99,
+        "newPrice" => 9.99
+      ],
+      [
+        "title" => "Ulysses",
+        "description" => "James Joyce's landmark work that chronicles the appointments and encounters of Leopold Bloom in Dublin.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "ulysses.jpg",
+        "oldPrice" => 27.99,
+        "newPrice" => 21.99
+      ],
+      [
+        "title" => "Crime and Punishment",
+        "description" => "Dostoevsky's exploration of the themes of guilt, suffering, and redemption through Rodion Raskolnikov.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "crime-and-punishment.jpg",
+        "oldPrice" => 22.99,
+        "newPrice" => 17.99
+      ],
+      [
+        "title" => "One Hundred Years of Solitude",
+        "description" => "Gabriel García Márquez's masterpiece of the Buendía family in the fictional town of Macondo.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "one-hundred-years-of-solitude.jpg",
+        "oldPrice" => 25.99,
+        "newPrice" => 19.99
+      ],
+      [
+        "title" => "The Brothers Karamazov",
+        "description" => "A passionate philosophical novel set in 19th-century Russia, that enters deeply into ethical debates of God, free will, and morality.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "the-brothers-karamazov.jpg",
+        "oldPrice" => 26.99,
+        "newPrice" => 20.99
+      ],
+      [
+        "title" => "Brave New World",
+        "description" => "Aldous Huxley's vision of a future society where people are conditioned into predetermined roles.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "brave-new-world.jpg",
+        "oldPrice" => 18.99,
+        "newPrice" => 13.99
+      ],
+      [
+        "title" => "Wuthering Heights",
+        "description" => "The tempestuous love story of Catherine Earnshaw and Heathcliff on the Yorkshire moors.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "wuthering-heights.jpg",
+        "oldPrice" => 16.99,
+        "newPrice" => 12.99
+      ],
+      [
+        "title" => "The Divine Comedy",
+        "description" => "Dante's journey through Hell, Purgatory, and Paradise, guided by the Roman poet Virgil.",
+        "category" => "adventure",
+        "trending" => false,
+        "coverImage" => "the-divine-comedy.jpg",
+        "oldPrice" => 34.99,
+        "newPrice" => 29.99
+      ],
+      [
+        "title" => "Jane Eyre",
+        "description" => "The story of a young orphan who overcomes hardship to find fulfillment as a governess and the wife of Rochester.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "jane-eyre.jpg",
+        "oldPrice" => 14.99,
+        "newPrice" => 10.99
+      ],
+      [
+        "title" => "Anna Karenina",
+        "description" => "Tolstoy's tragic story of the adulterous relationship between Anna Karenina and Count Vronsky.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "anna-karenina.jpg",
+        "oldPrice" => 23.99,
+        "newPrice" => 18.99
+      ],
+      [
+        "title" => "The Iliad",
+        "description" => "The epic poem that tells the story of the wrath of Achilles and the Trojan War.",
+        "category" => "adventure",
+        "trending" => false,
+        "coverImage" => "the-iliad.jpg",
+        "oldPrice" => 12.99,
+        "newPrice" => 9.99
+      ],
+      [
+        "title" => "Don Quixote",
+        "description" => "The adventures of the self-proclaimed knight-errant Don Quixote and his faithful squire Sancho Panza.",
+        "category" => "adventure",
+        "trending" => true,
+        "coverImage" => "don-quixote.jpg",
         "oldPrice" => 26.99,
         "newPrice" => 21.99
       ],
-
-
       [
-        "title" => "The Giving Tree",
-        "description" => "'Once there was a tree...and she loved a little boy.'So begins a story of unforgettable perception, beautifully written and illustrated by the gifted and versatile Shel Silverstein.",
+        "title" => "Madame Bovary",
+        "description" => "The tragic story of Emma Bovary, who seeks romance and social status through adulterous affairs and extravagent living.",
         "category" => "fiction",
         "trending" => false,
-        "coverImage" => "book-14.png",
-        "oldPrice" => 34.99,
-        "newPrice" => 24.99
-      ],
-
-      [
-        "title" => "Gone with the Wind",
-        "description" => "Scarlett O'Hara, the beautiful, spoiled daughter of a well-to-do Georgia plantation owner, must use every means at her disposal to claw her way out of the poverty she finds herself in after Sherman's March to the Sea.",
-        "category" => "fiction",
-        "trending" => false,
-        "coverImage" => "book-15.png",
-        "oldPrice" => 22.99,
+        "coverImage" => "madame-bovary.jpg",
+        "oldPrice" => 16.99,
         "newPrice" => 12.99
       ],
-
-
       [
-        "title" => "The Lightning Thief",
-        "description" => "Percy Jackson is a good kid, but he can't seem to focus on his schoolwork or control his temper. And lately, being away at boarding school is only getting worse - Percy could have sworn his pre-algebra teacher turned into a monster and tried to kill him",
+        "title" => "The Adventures of Huckleberry Finn",
+        "description" => "The story of Huck Finn and Jim's journey down the Mississippi River.",
+        "category" => "adventure",
+        "trending" => true,
+        "coverImage" => "the-adventures-of-huckleberry-finn.jpg",
+        "oldPrice" => 14.99,
+        "newPrice" => 10.99
+      ],
+      [
+        "title" => "Great Expectations",
+        "description" => "The story of the orphan Pip and his growth from childhood in the Kent marshes to becoming a gentleman in London.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "great-expectations.jpg",
+        "oldPrice" => 18.99,
+        "newPrice" => 13.99
+      ],
+      [
+        "title" => "Middlemarch",
+        "description" => "George Eliot's masterpiece that explores the social and political life of the fictional town of Middlemarch.",
         "category" => "fiction",
         "trending" => false,
-        "coverImage" => "book-16.png",
+        "coverImage" => "middlemarch.jpg",
+        "oldPrice" => 22.99,
+        "newPrice" => 17.99
+      ],
+      [
+        "title" => "Gulliver's Travels",
+        "description" => "The satirical travels of Lemuel Gulliver to various strange worlds.",
+        "category" => "adventure",
+        "trending" => true,
+        "coverImage" => "gullivers-travels.jpg",
+        "oldPrice" => 14.99,
+        "newPrice" => 10.99
+      ],
+      [
+        "title" => "Frankenstein",
+        "description" => "Mary Shelley's classic story of scientific hubris and the consequences of creating life.",
+        "category" => "horror",
+        "trending" => true,
+        "coverImage" => "frankenstein.jpg",
+        "oldPrice" => 16.99,
+        "newPrice" => 12.99
+      ],
+      [
+        "title" => "Dracula",
+        "description" => "Bram Stoker's seminal vampire novel that established many of the tropes of the genre.",
+        "category" => "horror",
+        "trending" => true,
+        "coverImage" => "dracula.jpg",
+        "oldPrice" => 18.99,
+        "newPrice" => 14.99
+      ],
+      [
+        "title" => "The Portrait of a Lady",
+        "description" => "The story of a young American woman, Isabel Archer, who travels to Europe and is manipulated by a fortune-hunter.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "the-portrait-of-a-lady.jpg",
+        "oldPrice" => 19.99,
+        "newPrice" => 15.99
+      ],
+      [
+        "title" => "Heart of Darkness",
+        "description" => "Conrad's exploration of the darkness at the core of human nature during a journey up the Congo River.",
+        "category" => "adventure",
+        "trending" => false,
+        "coverImage" => "heart-of-darkness.jpg",
+        "oldPrice" => 12.99,
+        "newPrice" => 9.99
+      ],
+      [
+        "title" => "The Sound and the Fury",
+        "description" => "Faulkner's modernist masterpiece that chronicles the decline of the Compson family.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "the-sound-and-the-fury.jpg",
+        "oldPrice" => 21.99,
+        "newPrice" => 16.99
+      ],
+      [
+        "title" => "Beloved",
+        "description" => "Toni Morrison's powerful novel of the consequences of slavery on the human soul.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "beloved.jpg",
+        "oldPrice" => 19.99,
+        "newPrice" => 14.99
+      ],
+      [
+        "title" => "To the Lighthouse",
+        "description" => "Virginia Woolf's stream-of-consciousness novel that explores the inner lives of the Ramsay family.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "to-the-lighthouse.jpg",
+        "oldPrice" => 18.99,
+        "newPrice" => 13.99
+      ],
+      [
+        "title" => "The Stranger",
+        "description" => "Albert Camus' story of a man who commits a senseless murder and is unable to feel remorse.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "the-stranger.jpg",
+        "oldPrice" => 15.99,
+        "newPrice" => 11.99
+      ],
+      [
+        "title" => "The Sun Also Rises",
+        "description" => "Hemingway's novel of the 'Lost Generation' and their aimless travels in post-war Europe.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "the-sun-also-rises.jpg",
+        "oldPrice" => 17.99,
+        "newPrice" => 12.99
+      ],
+      [
+        "title" => "Invisible Man",
+        "description" => "Ralph Ellison's powerful novel of a young Black man's experiences in a racist society.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "invisible-man.jpg",
+        "oldPrice" => 21.99,
+        "newPrice" => 16.99
+      ],
+      [
+        "title" => "Catch-22",
+        "description" => "Joseph Heller's satirical masterpiece about the absurdity of war.",
+        "category" => "fiction",
+        "trending" => true,
+        "coverImage" => "catch-22.jpg",
+        "oldPrice" => 18.99,
+        "newPrice" => 13.99
+      ],
+      [
+        "title" => "Lolita",
+        "description" => "Vladimir Nabokov's controversial story of Humbert Humbert's obsession with a young girl.",
+        "category" => "fiction",
+        "trending" => false,
+        "coverImage" => "lolita.jpg",
         "oldPrice" => 24.99,
         "newPrice" => 19.99
       ],
-
-
       [
-        "title" => "Alice’s Adventures in Wonderland",
-        "description" => "When Alice sees a white rabbit take a watch out of its waistcoat pocket she decides to follow it, and a sequence of most unusual events is set in motion. This mini book contains the entire topsy-turvy stories of Alice's Adventures in Wonderland",
-        "category" => "adventure",
+        "title" => "Slaughterhouse-Five",
+        "description" => "Kurt Vonnegut's anti-war novel that tells the story of Billy Pilgrim, who has become 'unstuck in time'.",
+        "category" => "fiction",
         "trending" => true,
-        "coverImage" => "book-17.png",
-        "oldPrice" => 49.99,
-        "newPrice" => 39.99
-      ],
-
-
-      [
-        "title" => "Divergent",
-        "description" => "On an appointed day of every year, all sixteen-year-olds must select the faction to which they will devote the rest of their lives. For Beatrice, the decision is between staying with her family and being who she really is",
-        "category" => "business",
-        "trending" => true,
-        "coverImage" => "book-18.png",
-        "oldPrice" => 18.99,
+        "coverImage" => "slaughterhouse-five.jpg",
+        "oldPrice" => 16.99,
         "newPrice" => 12.99
       ],
-
       [
-        "title" => "The Alchemist",
-        "description" => "Paulo Coelho's masterpiece tells the mystical story of Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure.",
+        "title" => "On the Road",
+        "description" => "Jack Kerouac's definitive novel of the Beat Generation and their journeys across America.",
         "category" => "adventure",
         "trending" => true,
-        "coverImage" => "book-19.png",
-        "oldPrice" => 35.99,
-        "newPrice" => 27.99
-      ],
-
-
-      [
-        "title" => "Four Thousand Weeks",
-        "description" => "Nobody needs to be told there isn’t enough time. We’re obsessed with our lengthening to-do lists, overfilled inboxes, work-life balance, and ceaseless battle against distraction; we’re deluged with advice on becoming more productive and efficient",
-        "category" => "business",
-        "trending" => false,
-        "coverImage" => "book-20.png",
-        "oldPrice" => 24.99,
-        "newPrice" => 14.99
+        "coverImage" => "on-the-road.jpg",
+        "oldPrice" => 17.99,
+        "newPrice" => 13.99
       ]
     ];
 

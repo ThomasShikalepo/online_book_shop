@@ -1,14 +1,8 @@
-
-import Navbar from '@/components/ui/Navbar';
-import { DynamicBackground } from '@/components/dynamic-background';
 import { Banner } from './home/Banner';
 import Footer from './home/Footer';
 import { Recommended } from './home/Recommended';
-import {TopSellers} from './home/TopSellers';
-
-
-
-
+import { TopSellers } from './home/TopSellers';
+import { motion } from 'framer-motion';
 
 type Book = {
     id: number;
@@ -21,26 +15,60 @@ type Book = {
     new_price: number;
 };
 
-export default function Home({ books }: { books: Book[] }) {
+const sectionVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+        opacity: 1, 
+        y: 0,
+        transition: {
+            duration: 0.8,
+            ease: [0.25, 0.1, 0.25, 1.0], 
+        }
+    }
+};
 
+export default function Home({ books }: { books: Book[] }) {
     return (
-        <>
-            <DynamicBackground />
-             <Navbar />
-             <section className="bg-transparent py-10">
-                 <Banner />
-             </section>
-             <section className="bg-transparent py-10">
-                 <TopSellers books={books} />
-             </section>
-             <section className="bg-transparent py-10">
-                <Recommended  books={books}/>
-             </section>
-             
-             <section className="bg-transparent py-10">
-                <Footer  />
-             </section>
+        <div className="w-full space-y-16 pb-20">
+            <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={sectionVariants}
+                className="bg-transparent"
+            >
+                <Banner />
+            </motion.section>
+
+            <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={sectionVariants}
+                className="bg-transparent"
+            >
+                <TopSellers books={books} />
+            </motion.section>
+
+            <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={sectionVariants}
+                className="bg-transparent"
+            >
+                <Recommended books={books}/>
+            </motion.section>
             
-        </>
+            <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={sectionVariants}
+                className="bg-transparent"
+            >
+                <Footer />
+            </motion.section>
+        </div>
     );
 }

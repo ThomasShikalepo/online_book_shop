@@ -75,195 +75,186 @@ export default function CheckoutPage() {
             )}
           </AnimatePresence>
 
-          <div>
             <div>
-                <h2 className="font-semibold text-xl text-black mb-2">Cash On Delivery</h2>
-                <p className="text-black mb-2">Total Price: N$ {totalPrice}</p>
-                <p className="text-black mb-6">Items: {totalItems}</p>
+              <div className="flex justify-between items-end mb-8 border-b border-white/5 pb-6">
+                <div>
+                  <h2 className="text-4xl font-black text-white uppercase tracking-tighter">Checkout <span className="text-amber-400">Order</span></h2>
+                  <p className="text-slate-400 font-bold mt-2 uppercase tracking-widest text-xs">Cash on Delivery</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-1">Total Amount</p>
+                  <p className="text-4xl font-black text-amber-400">N$ {totalPrice}</p>
+                </div>
               </div>
 
               <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-4 px-4 md:p-8 mb-6 text-black border border-white/20"
+                className="bg-white/5 backdrop-blur-2xl rounded-3xl shadow-2xl p-6 md:p-10 mb-6 text-white border border-white/10 relative overflow-hidden"
               >
-              {cartError && (
-                <div className="mb-4 rounded-md bg-red-50 p-4 text-red-700">
-                  {cartError}
-                </div>
-              )}
-              {generalError && (
-                <div className="mb-4 rounded-md bg-red-50 p-4 text-red-700">
-                  {generalError}
-                </div>
-              )}
-              {Object.entries(form.errors)
-                .filter(([key]) => key !== 'cart' && key !== 'general')
-                .map(([key, value]) => (
-                  <div key={key} className="mb-4 rounded-md bg-red-50 p-4 text-red-700">
-                    {value}
+                {/* Decorative background element */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-400/5 blur-[100px] rounded-full pointer-events-none" />
+
+                {cartError && (
+                  <div className="mb-6 rounded-2xl bg-red-500/10 border border-red-500/20 p-4 text-red-400 font-bold text-sm">
+                    {cartError}
                   </div>
-                ))}
-              {cartItems.length === 0 && (
-                <div className="mb-4 rounded-md bg-yellow-50 p-4 text-yellow-700">
-                  Your cart is empty. Add books to your cart before placing an order.
-                </div>
-              )}
-              <form onSubmit={handleSubmit} className="grid gap-4 gap-y-2 text-sm text-black grid-cols-1 lg:grid-cols-3 my-8">
-                <div className="text-gray-600">
-                  <p className="font-medium text-lg">Personal Details</p>
-                  <p>Please fill out all the fields.</p>
-                </div>
+                )}
+                {generalError && (
+                  <div className="mb-6 rounded-2xl bg-red-500/10 border border-red-500/20 p-4 text-red-400 font-bold text-sm">
+                    {generalError}
+                  </div>
+                )}
 
-                <div className="lg:col-span-2">
-                  <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                    <div className="md:col-span-5">
-                      <label htmlFor="name">Full Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={form.data.name}
-                        onChange={(event) => form.setData('name', event.target.value)}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        required
-                      />
+                <form onSubmit={handleSubmit} className="grid gap-12 text-sm grid-cols-1 lg:grid-cols-3 relative z-10">
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-black text-white uppercase tracking-tight flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-amber-400 text-black flex items-center justify-center text-sm">1</span>
+                      Personal Details
+                    </h3>
+                    <p className="text-slate-500 font-medium leading-relaxed">
+                      Please enter your shipping and contact information to complete the order.
+                    </p>
+                    <div className="pt-4 p-4 rounded-2xl bg-white/5 border border-white/5">
+                      <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mb-1">Order Summary</p>
+                      <p className="text-white font-black text-lg">{totalItems} Items</p>
                     </div>
+                  </div>
 
-                    <div className="md:col-span-5">
-                      <label htmlFor="email">Email Address</label>
-                      <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        value={currentUser?.email ?? ''}
-                        disabled
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 text-gray-400"
-                        placeholder="email@domain.com"
-                      />
-                    </div>
-
-                    <div className="md:col-span-5">
-                      <label htmlFor="phone">Phone Number</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        id="phone"
-                        value={form.data.phone}
-                        onChange={(event) => form.setData('phone', event.target.value)}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        placeholder="+123 456 7890"
-                        required
-                      />
-                    </div>
-
-                    <div className="md:col-span-3">
-                      <label htmlFor="address">Address / Street</label>
-                      <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        value={form.data.address}
-                        onChange={(event) => form.setData('address', event.target.value)}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        required
-                      />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label htmlFor="city">City</label>
-                      <input
-                        type="text"
-                        name="city"
-                        id="city"
-                        value={form.data.city}
-                        onChange={(event) => form.setData('city', event.target.value)}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        required
-                      />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label htmlFor="country">Country / region</label>
-                      <input
-                        type="text"
-                        name="country"
-                        id="country"
-                        value={form.data.country}
-                        onChange={(event) => form.setData('country', event.target.value)}
-                        placeholder="Country"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        required
-                      />
-                    </div>
-
-                    <div className="md:col-span-2">
-                      <label htmlFor="state">State / province</label>
-                      <input
-                        type="text"
-                        name="state"
-                        id="state"
-                        value={form.data.state}
-                        onChange={(event) => form.setData('state', event.target.value)}
-                        placeholder="State"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
-                    </div>
-
-                    <div className="md:col-span-1">
-                      <label htmlFor="zipcode">Zipcode</label>
-                      <input
-                        type="text"
-                        name="zipcode"
-                        id="zipcode"
-                        value={form.data.zipcode}
-                        onChange={(event) => form.setData('zipcode', event.target.value)}
-                        className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
-                    </div>
-
-                    <div className="md:col-span-5 mt-3">
-                      <div className="inline-flex items-center gap-2">
+                  <div className="lg:col-span-2">
+                    <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+                      <div className="md:col-span-2">
+                        <label htmlFor="name" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">Full Name</label>
                         <input
-                          type="checkbox"
-                          name="billing_same"
-                          id="billing_same"
-                          checked={form.data.billing_same}
-                          onChange={(event) => form.setData('billing_same', event.target.checked)}
-                          className="form-checkbox"
+                          type="text"
+                          name="name"
+                          id="name"
+                          value={form.data.name}
+                          onChange={(event) => form.setData('name', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                          required
                         />
-                        <label htmlFor="billing_same" className="ml-2">
-                          I agree to the{' '}
-                          <Link href="#" className="underline underline-offset-2 text-blue-600">
-                            Terms & Conditions
-                          </Link>{' '}
-                          and{' '}
-                          <Link href="#" className="underline underline-offset-2 text-blue-600">
-                            Shopping Policy
-                          </Link>
-                          .
+                      </div>
+
+                      <div className="md:col-span-1">
+                        <label htmlFor="email" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">Email Address</label>
+                        <input
+                          type="text"
+                          name="email"
+                          id="email"
+                          value={currentUser?.email ?? ''}
+                          disabled
+                          className="h-14 border bg-white/5 border-white/5 rounded-2xl px-6 w-full text-slate-500 font-bold cursor-not-allowed"
+                        />
+                      </div>
+
+                      <div className="md:col-span-1">
+                        <label htmlFor="phone" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">Phone Number</label>
+                        <input
+                          type="tel"
+                          name="phone"
+                          id="phone"
+                          value={form.data.phone}
+                          onChange={(event) => form.setData('phone', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                          placeholder="+123 456 7890"
+                          required
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label htmlFor="address" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">Address / Street</label>
+                        <input
+                          type="text"
+                          name="address"
+                          id="address"
+                          value={form.data.address}
+                          onChange={(event) => form.setData('address', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                          required
+                        />
+                      </div>
+
+                      <div className="md:col-span-1">
+                        <label htmlFor="city" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">City</label>
+                        <input
+                          type="text"
+                          name="city"
+                          id="city"
+                          value={form.data.city}
+                          onChange={(event) => form.setData('city', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                          required
+                        />
+                      </div>
+
+                      <div className="md:col-span-1">
+                        <label htmlFor="country" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">Country</label>
+                        <input
+                          type="text"
+                          name="country"
+                          id="country"
+                          value={form.data.country}
+                          onChange={(event) => form.setData('country', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                          required
+                        />
+                      </div>
+
+                      <div className="md:col-span-1">
+                        <label htmlFor="state" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">State / Province</label>
+                        <input
+                          type="text"
+                          name="state"
+                          id="state"
+                          value={form.data.state}
+                          onChange={(event) => form.setData('state', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                        />
+                      </div>
+
+                      <div className="md:col-span-1">
+                        <label htmlFor="zipcode" className="text-slate-400 font-bold mb-2 block uppercase tracking-widest text-[10px]">Zipcode</label>
+                        <input
+                          type="text"
+                          name="zipcode"
+                          id="zipcode"
+                          value={form.data.zipcode}
+                          onChange={(event) => form.setData('zipcode', event.target.value)}
+                          className="h-14 border bg-white/5 border-white/10 rounded-2xl px-6 w-full text-white focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all duration-300 font-bold shadow-inner"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2 mt-4">
+                        <label className="flex items-center gap-3 cursor-pointer group">
+                          <input
+                            type="checkbox"
+                            checked={form.data.billing_same}
+                            onChange={(e) => form.setData('billing_same', e.target.checked)}
+                            className="w-6 h-6 rounded-lg bg-white/5 border-white/10 text-amber-400 focus:ring-amber-400 focus:ring-offset-[#0f172a] transition-all"
+                          />
+                          <span className="text-slate-400 font-medium group-hover:text-white transition-colors">
+                            I agree to the <Link href="#" className="text-amber-400 font-black hover:underline">Terms</Link> and <Link href="#" className="text-amber-400 font-black hover:underline">Policies</Link>.
+                          </span>
                         </label>
                       </div>
-                    </div>
 
-                    <div className="md:col-span-5 text-right">
-                      <div className="inline-flex items-end">
+                      <div className="md:col-span-2 pt-6">
                         <button
                           type="submit"
                           disabled={!isFormComplete || form.processing || cartItems.length === 0}
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                          className="w-full bg-amber-400 hover:bg-amber-500 text-black font-black py-5 rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-amber-400/20 active:scale-[0.98] flex items-center justify-center gap-3 text-lg"
                         >
-                          {form.processing ? <Spinner className="text-white" /> : null}
-                          {form.processing ? 'Placing order...' : 'Place an Order'}
+                          {form.processing ? <Spinner className="text-black" /> : null}
+                          {form.processing ? 'Placing Order...' : 'Confirm Order'}
                         </button>
                       </div>
                     </div>
                   </div>
-                </div>
-              </form>
-            </motion.div>
-          </div>
+                </form>
+              </motion.div>
+            </div>
         </div>
       </div>
     </section>
