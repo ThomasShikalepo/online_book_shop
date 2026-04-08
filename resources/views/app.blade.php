@@ -7,7 +7,7 @@
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
             (function() {
-                const appearance = '{{ $appearance ?? "light" }}';
+                const appearance = '{{ $appearance ?? "dark" }}';
 
                 if (appearance === 'dark') {
                     document.documentElement.classList.add('dark');
@@ -15,14 +15,14 @@
             })();
         </script>
 
-        {{-- Inline style to keep the page white by default --}}
+        {{-- Inline style to keep the page dark by default --}}
         <style>
             html {
-                background-color: #ffffff;
+                background-color: #020617;
             }
 
             html.dark {
-                background-color: #ffffff;
+                background-color: #020617;
             }
         </style>
 
