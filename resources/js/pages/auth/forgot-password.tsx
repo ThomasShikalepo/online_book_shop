@@ -25,10 +25,10 @@ export default function ForgotPassword({ status }: { status?: string }) {
                 <Form {...email.form()}>
                     {({ processing, errors }) => (
                         <>
-                            <div className="grid gap-2 text-black">
+                            <div className="grid gap-2 text-foreground">
                                 <Label
                                     htmlFor="email"
-                                    className="text-gray-700"
+                                    className="text-foreground"
                                 >
                                     Email address
                                 </Label>
@@ -40,7 +40,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                                     autoComplete="off"
                                     autoFocus
                                     placeholder="email@example.com"
-                                    className="bg-white text-black border border-gray-300 placeholder:text-gray-400"
+                                    className="bg-white/5 text-foreground border border-gray-600 placeholder:text-muted-foreground"
                                 />
 
                                 <InputError message={errors.email} />
@@ -64,7 +64,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 <div className="space-x-1 text-center text-sm text-muted-foreground">
                     <span>Or, return to</span>
-                    <TextLink href={login()} className="text-black">
+                    <TextLink href={login()} className="text-foreground">
                         log in
                     </TextLink>
                 </div>

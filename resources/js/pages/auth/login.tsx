@@ -34,7 +34,7 @@ export default function Login({
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6 text-black">
+                        <div className="grid gap-6 text-foreground">
                             <div className="grid gap-2">
                                 <Label htmlFor="email">Email address</Label>
                                 <Input
@@ -51,12 +51,12 @@ export default function Login({
                             </div>
 
                             <div className="grid gap-2 ">
-                                <div className="flex items-center text-black">
+                                <div className="flex items-center text-foreground">
                                     <Label htmlFor="password">Password</Label>
                                     {canResetPassword && (
                                         <TextLink
                                             href={request()}
-                                            className="ml-auto text-sm text-black"
+                                            className="ml-auto text-sm text-foreground"
                                             tabIndex={5}
                                         >
                                             Forgot password?
@@ -98,7 +98,7 @@ export default function Login({
                         {canRegister && (
                             <div className="text-center text-sm text-muted-foreground ">
                                 Don't have an account?{' '}
-                                <TextLink href={register()} tabIndex={5} className='text-black'>
+                                <TextLink href={register()} tabIndex={5} className='text-foreground'>
                                     Sign up
                                 </TextLink>
                             </div>

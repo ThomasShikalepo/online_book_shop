@@ -3,6 +3,7 @@ import Footer from './home/Footer';
 import { Recommended } from './home/Recommended';
 import { TopSellers } from './home/TopSellers';
 import { motion } from 'framer-motion';
+import { usePage } from '@inertiajs/react';
 
 type Book = {
     id: number;
@@ -28,6 +29,7 @@ const sectionVariants = {
 };
 
 export default function Home({ books }: { books: Book[] }) {
+    const { auth } = usePage().props as any;
     return (
         <div className="w-full space-y-16 pb-20">
             <motion.section 
@@ -37,7 +39,7 @@ export default function Home({ books }: { books: Book[] }) {
                 variants={sectionVariants}
                 className="bg-transparent"
             >
-                <Banner />
+                <Banner isAuthenticated={!!auth?.user} />
             </motion.section>
 
             <motion.section 

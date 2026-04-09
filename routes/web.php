@@ -4,11 +4,22 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminController;
 use App\Models\Book;
 
 Route::inertia('/', 'Home', [
     'books' => Book::all(),
 ])->name('home');
+
+Route::get('/dashboard', function () {
+    if (Auth::check()) {
+        if (Auth::user()->user_type === 'Admin') {
+            return redirect('/admin');
+        }
+        return redirect('/');
+    }
+    return redirect('/');
+})->name('dashboard');
 
 
 
@@ -41,6 +52,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/admin', [AdminController::class, 'index']);
+        Route::get('/admin/create', [AdminController::class, 'create']);
+        Route::post('/admin/store', [AdminController::class, 'store']);
+    });
+
+
 });
 
 require __DIR__ . '/settings.php';

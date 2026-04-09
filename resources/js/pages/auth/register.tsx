@@ -22,7 +22,7 @@ export default function Register() {
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6 text-black  placeholder:text-gray-400">
+                        <div className="grid gap-6 text-foreground placeholder:text-gray-400">
                             <div className="grid gap-2">
                                 <Label htmlFor="name">Name</Label>
                                 <Input
@@ -100,7 +100,7 @@ export default function Register() {
 
                         <div className="text-center text-sm text-muted-foreground">
                             Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6} className='text-black'>
+                            <TextLink href={login()} tabIndex={6} className='text-foreground'>
                                 Log in
                             </TextLink>
                         </div>

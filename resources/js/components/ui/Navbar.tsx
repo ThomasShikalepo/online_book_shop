@@ -99,6 +99,15 @@ const Navbar = () => {
                                         <div className="px-4 py-3 text-sm font-black border-b border-white/5 opacity-70 uppercase tracking-wider">
                                             {currentUser?.name}
                                         </div>
+                                        <button
+                                            onClick={() => {
+                                                router.post('/logout');
+                                                setIsDropdownOpen(false);
+                                            }}
+                                            className="w-full text-left px-4 py-3 text-sm font-black text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+                                        >
+                                            Logout
+                                        </button>
                                     </motion.div>
                                 )}
                             </>
