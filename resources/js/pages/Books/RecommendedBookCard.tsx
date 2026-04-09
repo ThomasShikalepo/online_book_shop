@@ -1,4 +1,4 @@
-import { Link, useForm } from '@inertiajs/react';
+import { Link, useForm, router } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
