@@ -119,7 +119,7 @@ const CartPage = () => {
                         <div className="h-28 w-28 flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-[#0f172a] p-1">
                           <img
                             alt={products?.book?.title}
-                            src={`/images/books/${products?.book?.cover_image}`}
+                            src={products?.book?.cover_image.startsWith('http') || products?.book?.cover_image.startsWith('/') ? products?.book?.cover_image : `/${products?.book?.cover_image}`}
                             className="h-full w-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-110"
                           />
                         </div>

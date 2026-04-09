@@ -1,7 +1,8 @@
 import { Link, router, usePage } from "@inertiajs/react";
 import { motion } from "framer-motion";
-import AppLayout from "@/layouts/app-layout";
 import { useState } from "react";
+import AppLayout from "@/layouts/app-layout";
+
 
 export default function CreateAdmin() {
     const [formData, setFormData] = useState({

@@ -84,7 +84,7 @@ export function BookDetailsModal({ book, isOpen, onClose, onAddToCart, processin
                                 className="relative z-10 w-full flex justify-center"
                             >
                                 <img
-                                    src={`/images/books/${book.cover_image}`}
+                                    src={book.cover_image.startsWith('http') || book.cover_image.startsWith('/') ? book.cover_image : `/${book.cover_image}`}
                                     alt={book.title}
                                     className="w-full max-w-[450px] aspect-[2/3] object-contain rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.6)] transition-transform duration-700 hover:scale-[1.03]"
                                     onError={(e) => {

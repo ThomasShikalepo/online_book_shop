@@ -7,7 +7,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const navigation = [
-    { name: "Dashboard", href: "/Home" },
     { name: "Orders", href: "/orders" },
     { name: "Cart Page", href: "/cart" },
     { name: "Check Out", href: "/checkout" },
@@ -18,9 +17,14 @@ const Navbar = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-
-    const { auth, cartCount } = usePage().props as any;
+    const { auth, cartCount, filters } = usePage().props as any;
+    const [searchQuery, setSearchQuery] = useState(filters?.search || "");
     const currentUser = auth?.user;
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        router.get('/', { search: searchQuery }, { preserveState: true });
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -48,19 +52,32 @@ const Navbar = () => {
 
                     <motion.div 
                         initial={false}
-                        whileFocusWithin={{ scale: 1.05 }}
+                        whileFocus={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.02 }}
                         className="relative w-40 sm:w-64 md:w-80"
                     >
-                        <CgSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 z-10" />
-                        <input
-                            type="text"
-                            placeholder="Search here..."
-                            className="w-full rounded-2xl bg-white/5 border border-white/10 focus:border-amber-400 focus:bg-white/10 text-white py-3 pl-10 pr-3 focus:outline-none transition-all duration-300 shadow-inner placeholder:text-slate-500"
-                        />
+                        <form onSubmit={handleSearch}>
+                            <CgSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 z-10" />
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search here..."
+                                className="w-full rounded-2xl bg-white/5 border border-white/10 focus:border-amber-400 focus:bg-white/10 text-white py-3 pl-10 pr-3 focus:outline-none transition-all duration-300 shadow-inner placeholder:text-slate-500"
+                            />
+                        </form>
                     </motion.div>
                 </div>
 
                 <div className="hidden lg:flex items-center gap-1">
+                    {currentUser?.user_type === 'Admin' && (
+                        <Link
+                            href="/admin"
+                            className="px-4 py-2 text-sm font-black text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-300"
+                        >
+                            Dashboard
+                        </Link>
+                    )}
                     {navigation.map((item) => (
                         <Link
                             key={item.name}
@@ -123,6 +140,7 @@ const Navbar = () => {
                     <motion.button 
                         whileHover={{ scale: 1.2, color: '#f43f5e' }}
                         className="hidden sm:block"
+                        onClick={() => router.visit('/wishlist')}
                     >
                         <HiOutlineHeart className="size-8 text-slate-300 transition-colors" />
                     </motion.button>

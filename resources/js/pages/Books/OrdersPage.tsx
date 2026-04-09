@@ -185,7 +185,7 @@ export default function OrdersPage() {
                                   <div className="h-32 w-24 shrink-0 overflow-hidden rounded-xl bg-white/5 border border-white/10 p-1">
                                     {item.book?.cover_image ? (
                                       <img
-                                        src={`/images/books/${item.book.cover_image}`}
+                                        src={item.book.cover_image.startsWith('http') || item.book.cover_image.startsWith('/') ? item.book.cover_image : `/${item.book.cover_image}`}
                                         alt={item.book?.title}
                                         className="h-full w-full object-cover rounded-lg"
                                         onError={(e) => {

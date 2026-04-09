@@ -2,6 +2,7 @@ import { Link, useForm } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { HiOutlineHeart } from 'react-icons/hi';
 import { BookDetailsModal } from '@/components/book-details-modal';
 
 type Book = {
@@ -49,7 +50,7 @@ export default function RecommendedBookCard({ book }: { book: Book }) {
                     className="border border-white/10 p-2 bg-[#0f172a]"
                 >
                     <img
-                        src={`/images/books/${book.cover_image}`}
+                        src={book.cover_image.startsWith('http') || book.cover_image.startsWith('/') ? book.cover_image : `/${book.cover_image}`}
                         alt={book.title}
                         className="w-full h-72 object-cover rounded-xl"
                         onError={(e) => {
@@ -77,16 +78,29 @@ export default function RecommendedBookCard({ book }: { book: Book }) {
                     </span>
                 </div>
 
-                <motion.button 
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(251, 191, 36, 0.2)" }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={(e) => { e.stopPropagation(); handleAddToCart(); }}
-                    disabled={processing}
-                    className="mt-6 w-full bg-amber-400 hover:bg-amber-500 transition-all text-black py-4 rounded-xl flex items-center justify-center gap-3 font-black shadow-lg shadow-amber-400/20"
-                >
-                    <FiShoppingCart className="text-xl" />
-                    {processing ? 'Adding...' : 'Add to Cart'}
-                </motion.button>
+                <div className="flex items-center gap-2 mt-6">
+                    <motion.button 
+                        whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(251, 191, 36, 0.2)" }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => { e.stopPropagation(); handleAddToCart(); }}
+                        disabled={processing}
+                        className="flex-1 bg-amber-400 hover:bg-amber-500 transition-all text-black py-4 rounded-xl flex items-center justify-center gap-3 font-black shadow-lg shadow-amber-400/20"
+                    >
+                        <FiShoppingCart className="text-xl" />
+                        {processing ? 'Adding...' : 'Add to Cart'}
+                    </motion.button>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => { 
+                            e.stopPropagation(); 
+                            router.post('/wishlist', { book_id: book.id }, { preserveScroll: true });
+                        }}
+                        className="bg-white/10 hover:bg-white/20 text-white p-4 rounded-xl transition-all border border-white/10 shadow-xl"
+                    >
+                        <HiOutlineHeart className="text-xl text-amber-400" />
+                    </motion.button>
+                </div>
             </div>
 
             <BookDetailsModal 

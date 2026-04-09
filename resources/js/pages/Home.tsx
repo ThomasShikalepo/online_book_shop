@@ -10,6 +10,7 @@ type Book = {
     title: string;
     description: string;
     category: string;
+    treding: boolean;
     trending: boolean;
     cover_image: string;
     old_price: number;
@@ -49,7 +50,7 @@ export default function Home({ books }: { books: Book[] }) {
                 variants={sectionVariants}
                 className="bg-transparent"
             >
-                <TopSellers books={books} />
+                <TopSellers books={books.filter(b => b.treding || b.trending)} />
             </motion.section>
 
             <motion.section 
