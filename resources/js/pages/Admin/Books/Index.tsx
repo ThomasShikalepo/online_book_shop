@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
 import AdminLayout from '@/layouts/AdminLayout';
-import { Plus, Edit2, Trash2, X } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Loader2, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface Book {
@@ -26,6 +26,7 @@ interface BooksIndexProps {
 export default function BooksIndex({ books }: BooksIndexProps) {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingBook, setEditingBook] = useState<Book | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Form state
     const [formData, setFormData] = useState<{
@@ -77,6 +78,7 @@ export default function BooksIndex({ books }: BooksIndexProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
         
         // We use router.post instead of put for FormData (files)
         // In Laravel, we can pass _method: 'PUT' if needed
@@ -93,17 +95,22 @@ export default function BooksIndex({ books }: BooksIndexProps) {
             submitData.append('cover_image', formData.cover_image);
         }
 
+        const onSuccess = () => {
+            setIsFormOpen(false);
+            setIsSubmitting(false);
+        };
+        const onError = () => setIsSubmitting(false);
+
         if (editingBook) {
-            // It's an update. We have to use POST and spoof PUT in Laravel for form-data
-            // However, Inertia + Laravel handles this better if we do router.post
-            // We set route admin.books.update
             router.post(`/admin/books/${editingBook.id}`, submitData, {
-                onSuccess: () => setIsFormOpen(false),
+                onSuccess,
+                onError,
                 forceFormData: true, 
             });
         } else {
             router.post('/admin/books', submitData, {
-                onSuccess: () => setIsFormOpen(false),
+                onSuccess,
+                onError,
                 forceFormData: true,
             });
         }
@@ -151,7 +158,14 @@ export default function BooksIndex({ books }: BooksIndexProps) {
                                                     <div className="w-12 h-16 bg-neutral-800 rounded flex items-center justify-center text-neutral-600">No cover</div>
                                                 )}
                                                 <div>
-                                                    <div className="font-medium text-white line-clamp-1">{book.title}</div>
+                                                    <div className="font-medium text-white line-clamp-1 flex items-center gap-2">
+                                                        {book.title}
+                                                        {book.treding && (
+                                                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                                                <TrendingUp className="w-3 h-3" /> Trending
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                     <div className="text-xs text-neutral-500 line-clamp-1 mt-1 max-w-xs">{book.description}</div>
                                                 </div>
                                             </div>
@@ -232,8 +246,13 @@ export default function BooksIndex({ books }: BooksIndexProps) {
                                 <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)} className="bg-transparent border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white">
                                     Cancel
                                 </Button>
-                                <Button type="submit" className="bg-indigo-500 hover:bg-indigo-600 text-white border-0">
-                                    {editingBook ? 'Save Changes' : 'Add Book'}
+                                <Button 
+                                    type="submit" 
+                                    disabled={isSubmitting}
+                                    className="bg-indigo-500 hover:bg-indigo-600 text-white border-0 disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+                                >
+                                    {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                                    {isSubmitting ? 'Saving...' : (editingBook ? 'Save Changes' : 'Add Book')}
                                 </Button>
                             </div>
                         </form>

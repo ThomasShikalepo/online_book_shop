@@ -17,6 +17,7 @@ class OrderItem extends Model
         'price',
         'subtotal',
         'total',
+        'pdf_path',
     ];
 
     public function order()

@@ -36,13 +36,13 @@ export const TopSellers = ({ books }: TopSellersProps) => {
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 relative z-10">
-                {books.slice(0, 2).map((book, index) => (
+                {books.map((book, index) => (
                     <motion.div
                         key={book.id}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
+                        transition={{ delay: Math.min(index * 0.05, 0.5) }}
                     >
                         <BookCard book={book} />
                     </motion.div>

@@ -20,7 +20,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 <div className="h-full flex flex-col">
                     <div className="flex items-center h-16 px-6 border-b border-neutral-800">
                         <Link href="/admin" className="text-xl font-semibold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                            Midnight Admin
+                            Deon Book Shop
                         </Link>
                     </div>
 
@@ -52,9 +52,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     <div className="p-4 border-t border-neutral-800">
-                        <Link href="/" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-neutral-400 hover:text-neutral-200 transition-colors">
+                        <Link 
+                            href="/logout" 
+                            method="post" 
+                            as="button"
+                            className="flex items-center w-full gap-3 px-3 py-2 text-sm font-medium text-neutral-400 hover:text-neutral-200 transition-colors"
+                        >
                             <LogOut className="w-5 h-5" />
-                            Exit Admin
+                            Log Out
                         </Link>
                     </div>
                 </div>

@@ -89,6 +89,9 @@ Route::middleware(['auth'])->group(function () {
 
         // Users Management
         Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+
+        // Order Item PDF Upload
+        Route::post('/order-items/{orderItem}/pdf', [\App\Http\Controllers\Admin\AdminOrderItemPdfController::class, 'upload'])->name('admin.order-items.pdf');
     });
 
 

@@ -1,6 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Package, Calendar, MapPin, Phone, Mail, User, Info } from 'lucide-react';
+import { ChevronRight, Package, Calendar, MapPin, Phone, Mail, User, Info, FileText } from 'lucide-react';
 import React from 'react';
 
 type Book = {
@@ -15,6 +15,7 @@ type OrderItem = {
   subtotal: number;
   total: number;
   book?: Book;
+  pdf_path?: string;
 };
 
 type Order = {
@@ -125,6 +126,11 @@ export default function OrdersPage() {
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
+                            {order.status === 'completed' && itemsList.some((i: OrderItem) => i.pdf_path) && (
+                                <div className="hidden sm:flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-sm font-black shadow-[0_0_15px_rgba(16,185,129,0.15)] animate-pulse uppercase tracking-wider">
+                                    <FileText className="w-4 h-4" /> Downloads Ready
+                                </div>
+                            )}
                             <div className={`px-6 py-2 rounded-full text-sm font-black uppercase tracking-wider border shadow-lg ${
                                 order.status === 'completed' 
                                 ? 'bg-green-500/10 text-green-400 border-green-500/20' 
@@ -182,25 +188,64 @@ export default function OrdersPage() {
                             <div key={item.id} className="px-8 py-8 transition-colors hover:bg-white/[0.02]">
                               <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
                                 <div className="flex items-center gap-8">
-                                  <div className="h-32 w-24 shrink-0 overflow-hidden rounded-xl bg-white/5 border border-white/10 p-1">
-                                    {item.book?.cover_image ? (
-                                      <img
-                                        src={item.book.cover_image.startsWith('http') || item.book.cover_image.startsWith('/') ? item.book.cover_image : `/${item.book.cover_image}`}
-                                        alt={item.book?.title}
-                                        className="h-full w-full object-cover rounded-lg"
-                                        onError={(e) => {
-                                            (e.target as HTMLImageElement).src = '/images/books/book-1.png';
-                                        }}
-                                      />
+                                  <div className="h-32 w-24 shrink-0 overflow-hidden rounded-xl bg-white/5 border border-white/10 p-1 relative lg:group/cover">
+                                    {order.status === 'completed' && item.pdf_path ? (
+                                        <a href={`/${item.pdf_path}`} target="_blank" rel="noopener noreferrer" className="block w-full h-full relative cursor-pointer">
+                                            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/cover:opacity-100 transition-opacity flex items-center justify-center rounded-lg z-10">
+                                                <span className="text-white text-[10px] font-black uppercase bg-indigo-500 px-2 py-1 rounded">Read PDF</span>
+                                            </div>
+                                            {item.book?.cover_image ? (
+                                                <img
+                                                    src={item.book.cover_image.startsWith('http') || item.book.cover_image.startsWith('/') ? item.book.cover_image : `/${item.book.cover_image}`}
+                                                    alt={item.book?.title}
+                                                    className="h-full w-full object-cover rounded-lg"
+                                                    onError={(e) => {
+                                                        (e.target as HTMLImageElement).src = '/images/books/book-1.png';
+                                                    }}
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-600 font-black uppercase tracking-tighter text-[10px] text-center px-2 rounded-lg">
+                                                    Cover Missing
+                                                </div>
+                                            )}
+                                        </a>
                                     ) : (
-                                        <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-600 font-black uppercase tracking-tighter text-[10px] text-center px-2">
-                                            Cover Missing
-                                        </div>
+                                        item.book?.cover_image ? (
+                                            <img
+                                                src={item.book.cover_image.startsWith('http') || item.book.cover_image.startsWith('/') ? item.book.cover_image : `/${item.book.cover_image}`}
+                                                alt={item.book?.title}
+                                                className="h-full w-full object-cover rounded-lg"
+                                                onError={(e) => {
+                                                    (e.target as HTMLImageElement).src = '/images/books/book-1.png';
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-600 font-black uppercase tracking-tighter text-[10px] text-center px-2 rounded-lg">
+                                                Cover Missing
+                                            </div>
+                                        )
                                     )}
                                   </div>
                                   <div className="space-y-2">
-                                    <p className="text-2xl font-black text-white leading-tight group-hover:text-amber-400 transition-colors">{item.book?.title ?? 'Book Title'}</p>
-                                    <div className="flex items-center gap-4">
+                                    {order.status === 'completed' && item.pdf_path ? (
+                                        <a href={`/${item.pdf_path}`} target="_blank" rel="noopener noreferrer" className="block">
+                                            <p className="text-2xl font-black text-white leading-tight hover:text-indigo-400 transition-colors">{item.book?.title ?? 'Book Title'}</p>
+                                        </a>
+                                    ) : (
+                                        <p className="text-2xl font-black text-white leading-tight group-hover:text-amber-400 transition-colors">{item.book?.title ?? 'Book Title'}</p>
+                                    )}
+                                    <div className="flex items-center gap-4 flex-wrap">
+                                        {order.status === 'completed' && item.pdf_path && (
+                                            <a href={`/${item.pdf_path}`} target="_blank" rel="noopener noreferrer">
+                                                <div className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-lg text-xs font-black border border-emerald-500/20 uppercase tracking-widest transition-colors flex items-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                                                    <span className="relative flex h-2 w-2">
+                                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                                    </span>
+                                                    Read PDF Available
+                                                </div>
+                                            </a>
+                                        )}
                                         <div className="bg-amber-400/10 text-amber-400 px-3 py-1 rounded-lg text-xs font-black border border-amber-400/20 uppercase tracking-widest">
                                             Qty: {item.quantity}
                                         </div>

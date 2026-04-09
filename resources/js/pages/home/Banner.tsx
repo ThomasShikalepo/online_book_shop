@@ -1,9 +1,20 @@
 import '@/../css/Home.css';
 import bannerImg from "../../../assets/icons/banner.png";
 import { motion } from 'framer-motion';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export const Banner = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleExplore = () => {
+        setIsLoading(true);
+        // Brief loading feedback before navigation
+        setTimeout(() => {
+            router.visit('/books' as any);
+        }, 600);
+    };
     return (
         <div className='px-6 md:px-12 py-10 md:py-20 max-w-screen-2xl mx-auto'>
             <div className='flex flex-col md:flex-row-reverse justify-between items-center gap-16 md:gap-24'>
@@ -73,17 +84,28 @@ export const Banner = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
                     >
                         {isAuthenticated ? (
                             <motion.button 
-                                whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(251, 191, 36, 0.4)" }}
-                                whileTap={{ scale: 0.95 }}
-                                className='bg-amber-400 hover:bg-amber-500 text-black px-10 py-5 rounded-2xl font-black text-xl shadow-xl shadow-amber-400/20 transition-all duration-300 flex items-center gap-3 group'
+                                onClick={handleExplore}
+                                disabled={isLoading}
+                                whileHover={isLoading ? {} : { scale: 1.05, boxShadow: "0 0 40px rgba(251, 191, 36, 0.4)" }}
+                                whileTap={isLoading ? {} : { scale: 0.95 }}
+                                className='bg-amber-400 hover:bg-amber-500 disabled:bg-amber-400/70 text-black px-10 py-5 rounded-2xl font-black text-xl shadow-xl shadow-amber-400/20 transition-all duration-300 flex items-center gap-3 group'
                             >
-                                Start Exploring
-                                <motion.span
-                                    animate={{ x: [0, 5, 0] }}
-                                    transition={{ repeat: Infinity, duration: 1.5 }}
-                                >
-                                    →
-                                </motion.span>
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 className="w-5 h-5 animate-spin" />
+                                        Loading...
+                                    </>
+                                ) : (
+                                    <>
+                                        Start Exploring
+                                        <motion.span
+                                            animate={{ x: [0, 5, 0] }}
+                                            transition={{ repeat: Infinity, duration: 1.5 }}
+                                        >
+                                            →
+                                        </motion.span>
+                                    </>
+                                )}
                             </motion.button>
                         ) : (
                             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
