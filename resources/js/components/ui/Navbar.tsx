@@ -17,7 +17,7 @@ const Navbar = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const { auth, cartCount, filters } = usePage().props as any;
+    const { auth, cartCount, wishlistCount, filters } = usePage().props as any;
     const [searchQuery, setSearchQuery] = useState(filters?.search || "");
     const currentUser = auth?.user;
 
@@ -138,11 +138,16 @@ const Navbar = () => {
                     </div>
 
                     <motion.button 
-                        whileHover={{ scale: 1.2, color: '#f43f5e' }}
-                        className="hidden sm:block"
+                        whileHover={{ scale: 1.2 }}
+                        className="hidden sm:block relative"
                         onClick={() => router.visit('/wishlist')}
                     >
                         <HiOutlineHeart className="size-8 text-slate-300 transition-colors" />
+                        {wishlistCount > 0 && (
+                            <span className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[10px] font-black min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1 shadow-lg shadow-rose-500/40 border border-[#020617]">
+                                {wishlistCount}
+                            </span>
+                        )}
                     </motion.button>
 
                     <motion.button 

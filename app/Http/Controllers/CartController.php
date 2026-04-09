@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\CartItem;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -33,6 +34,11 @@ class CartController extends Controller
                 'subtotal' => $book->new_price,
             ]);
         }
+
+        // Remove from wishlist when added to cart
+        Wishlist::where('user_id', auth()->user()->id)
+            ->where('book_id', $book->id)
+            ->delete();
 
         return back()->with('success', 'Book added to cart.');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Models\CartItem;
+use App\Models\Wishlist;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -46,6 +47,10 @@ class HandleInertiaRequests extends Middleware
 
             'cartCount' => $request->user()
                 ? CartItem::where('user_id', $request->user()->id)->sum('quantity')
+                : 0,
+
+            'wishlistCount' => $request->user()
+                ? Wishlist::where('user_id', $request->user()->id)->count()
                 : 0,
         ];
     }

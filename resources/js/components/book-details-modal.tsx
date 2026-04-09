@@ -2,9 +2,11 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiShoppingCart, FiX } from 'react-icons/fi';
+import { HiOutlineHeart } from 'react-icons/hi';
 import { Button } from '@/components/ui/button';
 import { createPortal } from 'react-dom';
 import { useEffect, useState } from 'react';
+import { router } from '@inertiajs/react';
 
 type Book = {
     id: number;
@@ -142,7 +144,7 @@ export function BookDetailsModal({ book, isOpen, onClose, onAddToCart, processin
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
-                                className="mt-12 md:mt-20"
+                                className="mt-12 md:mt-20 flex flex-col gap-4"
                             >
                                 <Button
                                     onClick={onAddToCart}
@@ -152,6 +154,17 @@ export function BookDetailsModal({ book, isOpen, onClose, onAddToCart, processin
                                     <FiShoppingCart className="size-8 md:size-10" />
                                     {processing ? 'Adding to Cart...' : 'Add to Cart'}
                                 </Button>
+
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        router.post('/wishlist', { book_id: book.id }, { preserveScroll: true });
+                                    }}
+                                    className="w-full flex items-center justify-center gap-4 h-16 md:h-20 rounded-[2rem] border border-rose-500/30 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 font-black text-xl md:text-2xl transition-all active:scale-[0.97]"
+                                >
+                                    <HiOutlineHeart className="size-7 md:size-8" />
+                                    Add to Wishlist
+                                </button>
                             </motion.div>
                         </div>
                     </motion.div>
