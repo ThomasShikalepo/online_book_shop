@@ -11,11 +11,12 @@ use Illuminate\Support\Str;
 
 class AdminBookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::orderBy('created_at', 'desc')->paginate(15);
+        $books = Book::orderBy('created_at', 'desc')->get();
+
         return Inertia::render('Admin/Books/Index', [
-            'books' => $books
+            'books' => $books,
         ]);
     }
 

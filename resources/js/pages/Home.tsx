@@ -50,7 +50,7 @@ export default function Home({ books }: { books: Book[] }) {
                 variants={sectionVariants}
                 className="bg-transparent"
             >
-                <TopSellers books={books.filter(b => b.treding || b.trending).slice(0, 4)} />
+                <TopSellers books={books.filter(book => book.treding || book.trending).slice(0, 4)} />
             </motion.section>
 
             <motion.section 

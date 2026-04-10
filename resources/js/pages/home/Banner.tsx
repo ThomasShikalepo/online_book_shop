@@ -10,7 +10,7 @@ export const Banner = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
     const handleExplore = () => {
         setIsLoading(true);
-        // Brief loading feedback before navigation
+        
         setTimeout(() => {
             router.visit('/books' as any);
         }, 600);
@@ -18,7 +18,7 @@ export const Banner = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     return (
         <div className='px-6 md:px-12 py-10 md:py-20 max-w-screen-2xl mx-auto'>
             <div className='flex flex-col md:flex-row-reverse justify-between items-center gap-16 md:gap-24'>
-                {/* Visual Section with Floating Animation */}
+           
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -51,7 +51,7 @@ export const Banner = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
                     <div className="absolute inset-0 bg-blue-400/20 blur-[120px] rounded-full scale-75 -z-10" />
                 </motion.div>
                 
-                {/* Content Section with Staggered Reveals */}
+               
                 <div className='md:w-1/2 w-full text-white'>
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}

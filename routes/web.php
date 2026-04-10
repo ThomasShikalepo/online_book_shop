@@ -73,7 +73,7 @@ Route::middleware(['auth'])->group(function () {
         // Dashboard
         Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-        // Admin Management (from previous setup)
+        
         Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
         Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
 

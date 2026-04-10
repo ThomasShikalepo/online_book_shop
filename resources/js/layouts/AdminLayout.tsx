@@ -1,10 +1,37 @@
-import { Link, usePage } from '@inertiajs/react';
-import { ReactNode } from 'react';
-import { BookOpen, LayoutDashboard, Users, ShoppingBag, LogOut, Menu } from 'lucide-react';
+import { Link, usePage, router } from '@inertiajs/react';
+import { ReactNode, useRef, useEffect } from 'react';
+import { BookOpen, LayoutDashboard, Users, ShoppingBag, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+const SCROLL_KEY = 'admin-main-scroll';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     const { url } = usePage();
+    const mainRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const el = mainRef.current;
+        if (!el) return;
+
+        // Restore scroll position after navigation
+        const saved = sessionStorage.getItem(SCROLL_KEY);
+        if (saved) el.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position on every scroll
+        const onScroll = () => sessionStorage.setItem(SCROLL_KEY, String(el.scrollTop));
+        el.addEventListener('scroll', onScroll, { passive: true });
+
+        // Also restore after every Inertia finish event
+        const unsub = router.on('finish', () => {
+            const s = sessionStorage.getItem(SCROLL_KEY);
+            if (s && mainRef.current) mainRef.current.scrollTop = parseInt(s, 10);
+        });
+
+        return () => {
+            el.removeEventListener('scroll', onScroll);
+            unsub();
+        };
+    }, []);
 
     const navigation = [
         { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -27,7 +54,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     <div className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
                         {navigation.map((item) => {
                             const Icon = item.icon;
-                            // Exact match for dashboard, startswith for others
+                            
                             const isActive = item.href === '/admin' 
                                 ? url === '/admin' 
                                 : url.startsWith(item.href);
@@ -66,10 +93,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto">
+            <main ref={mainRef} className="flex-1 overflow-y-auto">
                 <header className="h-16 flex items-center justify-between px-8 border-b border-neutral-800/50 bg-neutral-950/50 backdrop-blur-sm sticky top-0 z-10">
                     <div className="flex items-center gap-4">
-                        {/* Mobile menu button could go here */}
+                        {/* Mobile menu button would go here */}
                     </div>
                     <div className="flex items-center gap-4">
                         <span className="text-sm text-neutral-400">Admin Mode</span>
