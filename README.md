@@ -1,34 +1,45 @@
 # 📚 Deon's Book Shop: The Midnight Library
 
-Welcome to the **Midnight Library** — an elegant, dark-themed online bookshop built for the modern reader. This isn't just an e-commerce platform; it's a curated digital reading experience that pairs an ambient, premium aesthetic with lightning-fast performance.
+Welcome to the **Midnight Library** — an elegant, dark-themed online bookshop born out of a simple pursuit: **to make discovering your next great read feel as magical as the stories themselves.** 
 
-Prepare to browse, wish, and checkout in style. 🌙
+Long gone are the days of scrolling through generic, stark-white e-commerce grids. We created the Midnight Library for the night owls, the dreamers, and the avid readers who want a digital space that respects the solitary, focused ritual of reading. With ambient glows, tactile animations, and zero page-reloads, this isn’t just a store—it’s an experience. 🌙
 
----
 
 ## ✨ Features
 
-- **The "Midnight Library" Aesthetic**: A meticulously crafted dark mode UI with ambient amber/gold glows, smooth gradients, and glassmorphic elements. 
-- **Fluid Micro-Interactions**: Powered by Framer Motion, every hover, scroll, and click feels alive, delivering a tactile browsing experience.
-- **Dynamic Book Discovery**: Easily browse "Top Sellers", search the collection, or explore "Recommended Books".
-- **Wishlist & Cart Management**: Save books for later, auto-sync between wishlist and cart, and enjoy a seamless checkout flow.
-- **Admin Command Center**: A fully isolated, secure, and mobile-optimized dashboard for managing users, book inventory, and orders.
-- **Single Page Application (SPA) Speed**: No page reloads here. Blazing fast transitions courtesy of Inertia.js.
-
----
-
 ## 📸 A Glimpse Inside
 
-### The Ambient Home Experience
-A captivating hero section greeting readers with the latest releases and an immersive cinematic design.
+### The Ambient Home & Catalog
+A captivating hero section greeting readers with the latest releases, transitioning smoothly into a curated catalog of available books.
 ![Home Page](public/docs/home.png)
+![Available Books](public/docs/available_books.png)
 
 ### The Portal (Authentication)
 A sleek, focused login and registration flow keeping with the dark aesthetic.
 ![Login Page](public/docs/login.png)
 ![Register Page](public/docs/register.png)
 
-*(Note: These are just a taste. Fire up the app to explore the dynamic Book Cards, Cart Page, and the Admin Dashboard!)*
+---
+
+## 🛡 The Command Center (Admin)
+
+Running a library is serious business. The fully functional Admin Dashboard provides real-time metrics and deep management capabilities over every aspect of the store.
+
+### Overview Dashboard
+Get a bird's eye view of revenue, active orders, and essential store statistics.
+![Admin Dashboard](public/docs/admin.png)
+
+### Inventory Management (Books)
+Easily add, edit, or remove titles from the collection.
+![Admin Books](public/docs/admin_books.png)
+
+### Order Tracking
+Keep tabs on what books are being shipped to readers.
+![Admin Orders](public/docs/admin_orders.png)
+
+### User Administration
+Manage the community of readers with ease.
+![Admin Users](public/docs/admin_users.png)
 
 ---
 
@@ -95,7 +106,9 @@ Make sure you have the following installed on your machine:
    ```
    *(Alternatively, run `php artisan serve` and `npm run dev` in separate terminal windows).*
 
-Visit **`http://localhost:8000`** in your browser and step into the Midnight Library.
+Visit **`http://localhost:8000`** in your browser and step into the Midnight Library. Use the following credentials to access the Command Center:
+- **Email:** `admin@example.com`
+- **Password:** `password`
 
 ---
 
