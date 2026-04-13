@@ -11,7 +11,7 @@ class Book extends Model
         'description',
         'category',
         'treding',
-        'cover_image',
+        'cover_image', 
         'old_price',
         'new_price',
         'quantity',

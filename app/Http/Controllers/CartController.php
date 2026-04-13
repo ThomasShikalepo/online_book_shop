@@ -35,7 +35,7 @@ class CartController extends Controller
             ]);
         }
 
-        // Remove from wishlist when added to cart
+        
         Wishlist::where('user_id', auth()->user()->id)
             ->where('book_id', $book->id)
             ->delete();
